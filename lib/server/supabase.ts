@@ -2,6 +2,8 @@ import "server-only";
 
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
+import { readSupabaseConfig, type ConfigProblem } from "@/lib/supabase-config";
+
 /**
  * Client Supabase réservé au serveur (route handlers, server components).
  * Il utilise la clé « service role » : ce fichier ne doit JAMAIS être importé
@@ -9,9 +11,9 @@ import { createClient, type SupabaseClient } from "@supabase/supabase-js";
  */
 
 export class SupabaseConfigError extends Error {
-  constructor() {
+  constructor(public readonly problems: ConfigProblem[]) {
     super(
-      "Supabase n'est pas configuré : renseignez SUPABASE_URL et SUPABASE_SERVICE_ROLE_KEY.",
+      `Supabase n'est pas configuré : ${problems.map((p) => p.message).join(" ")}`,
     );
     this.name = "SupabaseConfigError";
   }
@@ -19,20 +21,13 @@ export class SupabaseConfigError extends Error {
 
 let client: SupabaseClient | null = null;
 
-export function isSupabaseConfigured(): boolean {
-  return Boolean(
-    process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY,
-  );
-}
-
 export function getSupabase(): SupabaseClient {
   if (client) return client;
 
-  const url = process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key) throw new SupabaseConfigError();
+  const { config, problems } = readSupabaseConfig();
+  if (!config) throw new SupabaseConfigError(problems);
 
-  client = createClient(url, key, {
+  client = createClient(config.url, config.key, {
     auth: {
       persistSession: false,
       autoRefreshToken: false,

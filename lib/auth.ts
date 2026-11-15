@@ -41,8 +41,9 @@ function safeEqual(a: string, b: string): boolean {
 }
 
 export function getAdminPassword(): string | null {
-  const password = process.env.ADMIN_PASSWORD;
-  return password && password.length > 0 ? password : null;
+  // Espaces de début et de fin ignorés : ils viennent presque toujours d'un copier-coller.
+  const password = process.env.ADMIN_PASSWORD?.trim();
+  return password ? password : null;
 }
 
 function signingSecret(password: string): string {
@@ -54,7 +55,7 @@ export async function passwordMatches(input: string): Promise<boolean> {
   const expected = getAdminPassword();
   if (!expected) return false;
   const [a, b] = await Promise.all([
-    hmacHex("sga-admin-compare", input),
+    hmacHex("sga-admin-compare", input.trim()),
     hmacHex("sga-admin-compare", expected),
   ]);
   return safeEqual(a, b);

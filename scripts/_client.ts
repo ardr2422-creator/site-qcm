@@ -1,6 +1,8 @@
 import { loadEnvConfig } from "@next/env";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
+import { explainDatabaseError, readSupabaseConfig } from "../lib/supabase-config";
+
 /**
  * Client Supabase pour les scripts en ligne de commande (`npm run seed`,
  * `npm run reset`). Les variables sont lues dans `.env.local`, exactement
@@ -10,28 +12,24 @@ import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 loadEnvConfig(process.cwd(), true, { info: () => undefined, error: console.error });
 
 export function getScriptClient(): SupabaseClient {
-  const url = process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const { config, problems } = readSupabaseConfig();
 
-  if (!url || !key) {
+  if (!config) {
     console.error(
-      "\n✗ Variables manquantes : renseignez SUPABASE_URL et SUPABASE_SERVICE_ROLE_KEY dans .env.local\n",
+      `\n✗ Réglages Supabase à corriger dans .env.local :\n${problems.map((p) => `  • ${p.message}`).join("\n")}\n`,
     );
     process.exit(1);
   }
 
-  return createClient(url, key, {
+  return createClient(config.url, config.key, {
     auth: { persistSession: false, autoRefreshToken: false },
   });
 }
 
 /** Hôte de la base, pour rappeler à l'écran sur quel projet on agit. */
 export function describeTarget(): string {
-  try {
-    return new URL(process.env.SUPABASE_URL ?? "").host;
-  } catch {
-    return "(adresse Supabase invalide)";
-  }
+  const { config } = readSupabaseConfig();
+  return config ? new URL(config.url).host : "(adresse Supabase invalide)";
 }
 
 export async function countRows(
@@ -42,10 +40,10 @@ export async function countRows(
     .from(table)
     .select("*", { count: "exact", head: true });
   if (error) {
-    throw new Error(
-      `Lecture de la table « ${table} » impossible : ${error.message}. ` +
-        "Le schéma supabase/schema.sql a-t-il bien été exécuté ?",
-    );
+    const hint =
+      explainDatabaseError(error) ??
+      "Le schéma supabase/schema.sql a-t-il bien été exécuté ?";
+    throw new Error(`Lecture de la table « ${table} » impossible : ${error.message}. ${hint}`);
   }
   return count ?? 0;
 }

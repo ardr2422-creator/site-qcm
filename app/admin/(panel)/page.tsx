@@ -8,6 +8,7 @@ import { filtersToQuery, hasActiveFilters, parseFilters } from "@/lib/filters";
 import { requireAdmin } from "@/lib/server/admin-auth";
 import { loadDashboard, type DashboardData } from "@/lib/server/admin-data";
 import { SupabaseConfigError } from "@/lib/server/supabase";
+import { explainDatabaseError } from "@/lib/supabase-config";
 
 export const metadata: Metadata = { title: "Tableau de bord" };
 export const dynamic = "force-dynamic";
@@ -36,36 +37,45 @@ function PrintIcon() {
 }
 
 function LoadError({ error }: { error: unknown }) {
-  const notConfigured = error instanceof SupabaseConfigError;
+  const configProblems = error instanceof SupabaseConfigError ? error.problems : null;
+  const explanation = configProblems ? null : explainDatabaseError(error);
+
   return (
     <div
       role="alert"
       className="mt-6 rounded-2xl border border-erreur-600 bg-erreur-50 px-5 py-5 text-brun-900"
     >
       <h2 className="font-serif text-xl font-semibold text-erreur-800">
-        {notConfigured
+        {configProblems
           ? "La base de données n’est pas encore branchée"
           : "Impossible de lire les données"}
       </h2>
-      <p className="mt-2">
-        {notConfigured ? (
-          <>
-            Renseignez les variables <code>SUPABASE_URL</code> et{" "}
-            <code>SUPABASE_SERVICE_ROLE_KEY</code> (fichier{" "}
-            <code>.env.local</code> en local, réglages du projet sur Vercel),
-            puis rechargez la page.
-          </>
-        ) : (
-          <>
-            Vérifiez que le schéma <code>supabase/schema.sql</code> a bien été
-            exécuté dans Supabase et que les clés sont correctes, puis
-            rechargez la page.
-          </>
-        )}
-      </p>
-      {!notConfigured && error instanceof Error ? (
-        <p className="mt-2 text-sm text-brun-700">Détail : {error.message}</p>
-      ) : null}
+
+      {configProblems ? (
+        <>
+          <ul className="mt-3 list-disc space-y-1.5 pl-5">
+            {configProblems.map((problem) => (
+              <li key={problem.message}>{problem.message}</li>
+            ))}
+          </ul>
+          <p className="mt-3 text-[0.9375rem] text-brun-700">
+            Ces réglages se trouvent sur Vercel : projet → <strong>Settings</strong> →{" "}
+            <strong>Environment Variables</strong>. Après une modification,
+            relancez un déploiement (<strong>Deployments</strong> → <strong>…</strong> →{" "}
+            <strong>Redeploy</strong>), puis rechargez cette page.
+          </p>
+        </>
+      ) : (
+        <>
+          <p className="mt-2">
+            {explanation ??
+              "Vérifiez que le fichier supabase/schema.sql a bien été exécuté dans Supabase et que les réglages sont corrects, puis rechargez la page."}
+          </p>
+          {error instanceof Error ? (
+            <p className="mt-2 text-sm text-brun-700">Détail technique : {error.message}</p>
+          ) : null}
+        </>
+      )}
     </div>
   );
 }

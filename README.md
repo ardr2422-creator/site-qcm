@@ -68,10 +68,20 @@ Autres commandes utiles :
 3. Copiez-collez tout le contenu de [`supabase/schema.sql`](supabase/schema.sql)
    et cliquez sur **Run**. Trois tables sont créées : `sessions`, `answers`,
    `feedback`. Le script peut être relancé sans risque.
-4. Ouvrez **Project Settings → API** (ou **API Keys**) et notez :
-   - l'adresse du projet (**Project URL**) → `SUPABASE_URL` ;
-   - la clé **`service_role`** (sur les projets récents : **Secret key**, qui
-     commence par `sb_secret_…`) → `SUPABASE_SERVICE_ROLE_KEY`.
+4. Récupérez deux informations :
+   - **l'adresse du projet** → `SUPABASE_URL`. Le plus simple : copiez
+     l'adresse affichée par votre navigateur quand le projet est ouvert
+     (`https://supabase.com/dashboard/project/abcdefgh…`). Le site la convertit
+     tout seul en `https://abcdefgh….supabase.co`.
+   - **la clé secrète** → `SUPABASE_SERVICE_ROLE_KEY`. Roue crantée
+     **Project Settings** (en bas à gauche) → **API Keys** → section
+     **Secret keys** : la clé qui commence par `sb_secret_…` (cliquez sur
+     l'icône de copie). Sur un ancien projet, onglet **Legacy API Keys** : la
+     clé `service_role`.
+
+   ⚠️ Ne prenez **pas** la clé publique (`sb_publishable_…` ou `anon`) : le
+   tableau de bord afficherait « La base de données n'est pas encore
+   branchée » en indiquant l'erreur.
 
 > ⚠️ Cette clé donne tous les droits sur la base. Elle ne doit jamais être
 > publiée, ni préfixée par `NEXT_PUBLIC_`. Le site ne l'utilise que côté serveur.

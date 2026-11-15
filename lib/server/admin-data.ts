@@ -19,6 +19,11 @@ import { getSupabase } from "./supabase";
  * quelques milliers de participations.
  */
 
+/** Erreur de lecture qui conserve le code renvoyé par Supabase. */
+function databaseError(context: string, error: { message: string; code?: string }) {
+  return Object.assign(new Error(`${context} : ${error.message}`), { code: error.code });
+}
+
 const PAGE_SIZE = 1000;
 /** Garde-fou : au-delà, on s'arrête plutôt que de saturer la mémoire. */
 const MAX_ROWS = 50_000;
@@ -69,7 +74,7 @@ export async function fetchSessions(
       .order("id", { ascending: true })
       .range(offset, offset + PAGE_SIZE - 1);
 
-    if (error) throw new Error(`Lecture des parties : ${error.message}`);
+    if (error) throw databaseError("Lecture des parties", error);
 
     const rows = (data ?? []) as unknown as RawSession[];
     for (const row of rows) sessions.push(normalize(row));
@@ -96,7 +101,7 @@ export async function fetchSources(): Promise<{
       .order("id", { ascending: true })
       .range(offset, offset + PAGE_SIZE - 1);
 
-    if (error) throw new Error(`Lecture des sources : ${error.message}`);
+    if (error) throw databaseError("Lecture des sources", error);
 
     const rows = (data ?? []) as { source: string | null }[];
     for (const row of rows) {
