@@ -7,14 +7,15 @@ type TileProps = {
   unit?: string;
   hint?: string;
   compact: boolean;
+  className?: string;
 };
 
-function Tile({ label, value, unit, hint, compact }: TileProps) {
+function Tile({ label, value, unit, hint, compact, className = "" }: TileProps) {
   return (
     <div
       className={`break-inside-avoid border border-creme-300 bg-[#fffdf8] ${
         compact ? "rounded-lg px-3 py-3" : "rounded-2xl px-5 py-4"
-      }`}
+      } ${className}`}
     >
       <dt
         className={`font-medium leading-snug text-brun-600 ${compact ? "text-xs" : "text-sm"}`}
@@ -77,8 +78,8 @@ export function StatTiles({
         value={formatNumber(totals.completed)}
         hint={
           totals.completionRate === null
-            ? "Taux de complétion : —"
-            : `Taux de complétion : ${formatPercent(totals.completionRate)}`
+            ? "Taux de complétion\u00a0: —"
+            : `Taux de complétion\u00a0: ${formatPercent(totals.completionRate)}`
         }
       />
       <Tile
@@ -97,6 +98,8 @@ export function StatTiles({
       />
       <Tile
         compact={compact}
+        // Cinquième tuile : sur deux colonnes (téléphone), elle occupe toute la ligne.
+        className={compact ? "" : "col-span-2 sm:col-span-1"}
         label="Commentaires"
         value={formatNumber(totals.commentCount)}
         hint={plural(totals.commentCount, "mot laissé", "mots laissés")}

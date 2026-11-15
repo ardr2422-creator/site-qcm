@@ -60,7 +60,8 @@ const FIRST_NAMES = [
   "Rachid", "Monique", "Hugo", "Samira", "Gérard", "Léa", "Abdel", "Martine",
 ];
 
-const COMMENTS = [
+/** Commentaires enthousiastes (plutôt associés aux notes de 4 ou 5). */
+const WARM_COMMENTS = [
   "Très joli jeu, j'ai appris des choses sur ma ville !",
   "Je ne savais pas que Monet avait vécu ici aussi longtemps.",
   "Ma grand-mère cultivait des asperges du côté des Coteaux, ça m'a rappelé des souvenirs.",
@@ -69,24 +70,31 @@ const COMMENTS = [
   "On devrait proposer ça dans les écoles d'Argenteuil.",
   "J'habite ici depuis 30 ans et j'ai quand même fait une erreur !",
   "La butte d'Orgemont, quelle vue… Merci de la mettre à l'honneur.",
-  "Il faudrait un marché avec de vraies asperges d'Argenteuil.",
   "Les enfants ont adoré chercher les réponses avec nous.",
-  "Un peu court, on en redemande !",
   "Bravo pour l'initiative, c'est une belle façon de parler du patrimoine.",
   "Je me souviens des régates sur la Seine racontées par mon père.",
   "Facile à utiliser, même pour moi qui ne suis pas à l'aise avec le téléphone.",
-  "Pourquoi pas une question sur la basilique et la Sainte Tunique ?",
   "J'ai découvert le parc du Cerisier grâce à ce jeu, j'irai m'y promener.",
-  "Les figues d'Argenteuil, on en trouve encore ?",
-  "Très bien fait. Une version plus longue serait top.",
   "Ça donne envie d'en savoir plus sur l'histoire de la ville.",
   "Belle surprise sur la table, merci à l'équipe.",
   "Les anecdotes après chaque question sont une très bonne idée.",
-  "J'aurais aimé des photos anciennes avec les réponses.",
   "On a joué en famille, 4 sur 5 pour tout le monde.",
-  "À quand une balade guidée sur les traces des impressionnistes ?",
   "Mes parents étaient maraîchers au Val Notre-Dame, merci pour ce clin d'œil.",
   "Rapide, sympa et instructif.",
+];
+
+/** Idées et réserves (plutôt associées aux notes de 3 ou moins). */
+const MIXED_COMMENTS = [
+  "Un peu court, on en redemande !",
+  "Il faudrait un marché avec de vraies asperges d'Argenteuil.",
+  "Pourquoi pas une question sur la basilique et la Sainte Tunique ?",
+  "Les figues d'Argenteuil, on en trouve encore ?",
+  "Très bien fait, mais une version plus longue serait top.",
+  "J'aurais aimé des photos anciennes avec les réponses.",
+  "À quand une balade guidée sur les traces des impressionnistes ?",
+  "Les questions sont un peu longues à lire sur un petit écran.",
+  "Dommage qu'il n'y ait que cinq devinettes.",
+  "Un peu facile pour les Argenteuillais de longue date.",
 ];
 
 /** Difficulté de chaque devinette (probabilité de bonne réponse d'un joueur moyen). */
@@ -176,11 +184,15 @@ function startTime(slot: Slot): number {
   return time;
 }
 
-const remainingComments = [...COMMENTS];
-function takeComment(): string {
-  if (remainingComments.length === 0) remainingComments.push(...COMMENTS);
-  const index = Math.floor(random() * remainingComments.length);
-  return remainingComments.splice(index, 1)[0];
+const remainingWarm = [...WARM_COMMENTS];
+const remainingMixed = [...MIXED_COMMENTS];
+
+/** Tire un commentaire accordé à la note, sans répétition tant que possible. */
+function takeComment(rating: number | null): string {
+  const mixed = rating !== null ? rating <= 3 : chance(0.5);
+  const pool = mixed ? remainingMixed : remainingWarm;
+  if (pool.length === 0) pool.push(...(mixed ? MIXED_COMMENTS : WARM_COMMENTS));
+  return pool.splice(Math.floor(random() * pool.length), 1)[0];
 }
 
 function generate(count: number, replays: number) {
@@ -257,14 +269,14 @@ function generate(count: number, replays: number) {
         const rating = rates
           ? weighted(
               score >= 4
-                ? ([[5, 55], [4, 33], [3, 9], [2, 2], [1, 1]] as const)
-                : ([[5, 34], [4, 38], [3, 19], [2, 6], [1, 3]] as const),
+                ? ([[5, 62], [4, 32], [3, 6]] as const)
+                : ([[5, 44], [4, 40], [3, 13], [2, 3]] as const),
             )
           : null;
         feedback.push({
           session_id: id,
           rating,
-          comment: comments ? takeComment() : null,
+          comment: comments ? takeComment(rating) : null,
           created_at: new Date(clock + between(15, 90) * 1000).toISOString(),
         });
       }

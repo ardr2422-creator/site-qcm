@@ -34,13 +34,18 @@ export function scoreMessage(score: number, total: number): string {
  * - `retentionMonths` : durée de conservation annoncée, en mois.
  * - `hostedInEU` : affiche la mention « hébergées dans l'Union européenne ».
  */
-export const privacy = {
+export const privacy: {
+  organizer: string;
+  contactEmail: string;
+  retentionMonths: number;
+  hostedInEU: boolean;
+} = {
   organizer: "l'équipe organisatrice du jeu",
   contactEmail: "",
   retentionMonths: 12,
   /** Passer à `true` si le projet Supabase est créé dans une région européenne. */
   hostedInEU: false,
-} as const;
+};
 
 /** Sources proposées par défaut dans le générateur de QR codes (`?src=`). */
 export const defaultSources = [

@@ -13,6 +13,7 @@ type Mode = "hour" | "day";
 type Props = {
   timeline: DashboardStats["timeline"];
   fixedWidth?: number;
+  height?: number;
   /** Version imprimable : pas de sélecteur, vue par défaut uniquement. */
   print?: boolean;
 };
@@ -27,7 +28,7 @@ const toPoints = (points: TimePoint[]): ColumnPoint[] =>
   }));
 
 /** Participations dans le temps, par heure ou par jour. */
-export function TimelineCard({ timeline, fixedWidth, print = false }: Props) {
+export function TimelineCard({ timeline, fixedWidth, height = 250, print = false }: Props) {
   const [mode, setMode] = useState<Mode>(timeline.defaultMode);
   const points = mode === "hour" ? timeline.hourly : timeline.daily;
 
@@ -65,9 +66,11 @@ export function TimelineCard({ timeline, fixedWidth, print = false }: Props) {
       compact={print}
       title="Participations dans le temps"
       subtitle={
-        mode === "hour"
-          ? "Parties démarrées, heure par heure (heure de Paris)"
-          : "Parties démarrées, jour par jour"
+        mode === "day"
+          ? "Parties démarrées, jour par jour"
+          : timeline.hourlyKind === "profile"
+            ? "Parties démarrées selon l’heure de la journée, tous jours confondus"
+            : "Parties démarrées, heure par heure (heure de Paris)"
       }
       action={selector}
       table={{
@@ -78,7 +81,7 @@ export function TimelineCard({ timeline, fixedWidth, print = false }: Props) {
       <ColumnChart
         data={toPoints(points)}
         fixedWidth={fixedWidth}
-        height={print ? 200 : 250}
+        height={height}
         showValues={points.length <= 14}
         ariaLabel={`Participations ${mode === "hour" ? "par heure" : "par jour"}`}
       />

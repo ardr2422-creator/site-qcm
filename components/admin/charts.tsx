@@ -33,6 +33,8 @@ export const CHART_COLORS = {
   /** Éléments de second plan (réponses incorrectes). */
   muted: "#b5a791",
   grid: "#ebe2cf",
+  /** Rail clair derrière les barres horizontales (repère des 100 %). */
+  track: "#f1eadc",
   axis: "#655243",
   ink: "#2e1f16",
   hover: "rgba(101, 82, 67, 0.08)",
@@ -118,11 +120,18 @@ type BarListProps = {
   /** Valeur correspondant à une barre pleine (100 pour des pourcentages). */
   max?: number;
   fixedWidth?: number;
+  /** Lignes resserrées (version imprimable). */
+  dense?: boolean;
   ariaLabel: string;
 };
 
+/** Hauteur d'une ligne : libellé au-dessus, barre centrée en dessous. */
 const ROW_HEIGHT = 46;
+const ROW_HEIGHT_DENSE = 38;
 const BAR_SIZE = 12;
+const BAR_SIZE_DENSE = 9;
+/** Marge haute, pour que le premier libellé ne soit pas rogné. */
+const LIST_TOP = 6;
 
 type LabelContentProps = {
   x?: number | string;
@@ -135,8 +144,10 @@ type LabelContentProps = {
  * ligne au-dessus de chaque barre. Les libellés longs restent donc lisibles,
  * y compris sur un téléphone.
  */
-export function BarList({ rows, max, fixedWidth, ariaLabel }: BarListProps) {
-  const height = rows.length * ROW_HEIGHT;
+export function BarList({ rows, max, fixedWidth, dense = false, ariaLabel }: BarListProps) {
+  const rowHeight = dense ? ROW_HEIGHT_DENSE : ROW_HEIGHT;
+  const fontSize = dense ? 12 : FONT_SIZE;
+  const height = rows.length * rowHeight + LIST_TOP;
   const domainMax = max ?? Math.max(1, ...rows.map((row) => row.value));
 
   return (
@@ -146,10 +157,11 @@ export function BarList({ rows, max, fixedWidth, ariaLabel }: BarListProps) {
           const row = props.index !== undefined ? rows[props.index] : undefined;
           if (!row) return null;
           const x = Number(props.x ?? 0);
-          const y = Number(props.y ?? 0) - 7;
+          // Ligne de base du texte, juste au-dessus de la barre.
+          const y = Number(props.y ?? 0) - (dense ? 6 : 8);
           // Largeur disponible pour le libellé, valeur de droite déduite.
-          const valueWidth = row.display.length * 7.2 + 12;
-          const maxChars = Math.max(8, Math.floor((width - valueWidth) / 6.6));
+          const valueWidth = row.display.length * (fontSize * 0.56) + 12;
+          const maxChars = Math.max(8, Math.floor((width - valueWidth) / (fontSize * 0.51)));
           const text = `${row.highlight ? "✓ " : ""}${row.label}`;
           const shown =
             text.length > maxChars ? `${text.slice(0, maxChars - 1).trimEnd()}…` : text;
@@ -159,7 +171,7 @@ export function BarList({ rows, max, fixedWidth, ariaLabel }: BarListProps) {
               <text
                 x={x}
                 y={y}
-                fontSize={FONT_SIZE}
+                fontSize={fontSize}
                 fontWeight={row.highlight ? 700 : 500}
                 fill={CHART_COLORS.ink}
               >
@@ -169,7 +181,7 @@ export function BarList({ rows, max, fixedWidth, ariaLabel }: BarListProps) {
                 x={width}
                 y={y}
                 textAnchor="end"
-                fontSize={FONT_SIZE}
+                fontSize={fontSize}
                 fontWeight={600}
                 fill={CHART_COLORS.ink}
                 style={{ fontVariantNumeric: "tabular-nums" }}
@@ -186,7 +198,7 @@ export function BarList({ rows, max, fixedWidth, ariaLabel }: BarListProps) {
             width={width}
             height={height}
             data={rows}
-            margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
+            margin={{ top: LIST_TOP, right: 0, bottom: 0, left: 0 }}
             barCategoryGap={0}
             accessibilityLayer
             role="img"
@@ -206,12 +218,10 @@ export function BarList({ rows, max, fixedWidth, ariaLabel }: BarListProps) {
             />
             <Bar
               dataKey="value"
-              barSize={BAR_SIZE}
+              barSize={dense ? BAR_SIZE_DENSE : BAR_SIZE}
               radius={[0, 4, 4, 0]}
               isAnimationActive={false}
-              // Décale la barre vers le bas de sa ligne : le libellé s'écrit au-dessus.
-              transform="translate(0, 8)"
-              background={{ fill: CHART_COLORS.grid, radius: 4 }}
+              background={{ fill: CHART_COLORS.track, radius: 4 }}
             >
               {rows.map((row) => (
                 <Cell

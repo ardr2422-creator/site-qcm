@@ -120,7 +120,7 @@ export function FeedbackList({ entries }: { entries: FeedbackEntry[] }) {
                 </time>
               </div>
               <p className="mt-1.5 whitespace-pre-line break-words text-brun-900">
-                {entry.comment}
+                {typo(entry.comment)}
               </p>
             </li>
           ))}

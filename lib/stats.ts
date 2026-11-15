@@ -72,6 +72,11 @@ export type DashboardStats = {
   scoreDistribution: { score: number; count: number; share: number }[];
   timeline: {
     hourly: TimePoint[];
+    /**
+     * "timeline" : heures qui se suivent (un événement, quelques jours au plus) ;
+     * "profile"  : heures de la journée, tous jours confondus (période longue).
+     */
+    hourlyKind: "timeline" | "profile";
     daily: TimePoint[];
     defaultMode: "hour" | "day";
   };
@@ -172,7 +177,8 @@ function countBy(
 
 /* ───────────────────────────── Chronologie ────────────────────────────── */
 
-const MAX_HOURLY_GAP_FILL = 72;
+/** Au-delà de 72 h entre la première et la dernière partie : profil horaire. */
+const MAX_HOURLY_SPAN = 72;
 const MAX_DAILY_GAP_FILL = 120;
 
 function dailyTimeline(sessions: SessionRecord[]): TimePoint[] {
@@ -202,7 +208,10 @@ function dailyTimeline(sessions: SessionRecord[]): TimePoint[] {
   }));
 }
 
-function hourlyTimeline(sessions: SessionRecord[]): TimePoint[] {
+function hourlyTimeline(sessions: SessionRecord[]): {
+  points: TimePoint[];
+  kind: "timeline" | "profile";
+} {
   const counts = new Map<string, number>();
   let first = Infinity;
   let last = -Infinity;
@@ -213,37 +222,53 @@ function hourlyTimeline(sessions: SessionRecord[]): TimePoint[] {
     first = Math.min(first, instant.getTime());
     last = Math.max(last, instant.getTime());
   }
-  if (counts.size === 0) return [];
+  if (counts.size === 0) return { points: [], kind: "timeline" };
 
   const HOUR = 60 * 60 * 1000;
   const spanHours = Math.floor(last / HOUR) - Math.floor(first / HOUR) + 1;
 
-  let keys: string[];
-  if (spanHours <= MAX_HOURLY_GAP_FILL) {
-    // Axe continu, heure par heure, entre la première et la dernière partie.
-    const seen = new Set<string>();
-    for (let t = Math.floor(first / HOUR) * HOUR; t <= last; t += HOUR) {
-      seen.add(hourKey(new Date(t)));
+  // Période longue : un axe heure par heure serait illisible. On montre plutôt
+  // à quelle heure de la journée on joue, tous jours confondus.
+  if (spanHours > MAX_HOURLY_SPAN) {
+    const byHour = new Map<number, number>();
+    for (const [key, count] of counts) {
+      const hour = Number(key.slice(11, 13));
+      byHour.set(hour, (byHour.get(hour) ?? 0) + count);
     }
-    for (const key of counts.keys()) seen.add(key);
-    keys = Array.from(seen).sort();
-  } else {
-    keys = Array.from(counts.keys()).sort();
+    const hours = Array.from(byHour.keys());
+    const points: TimePoint[] = [];
+    for (let hour = Math.min(...hours); hour <= Math.max(...hours); hour += 1) {
+      points.push({
+        key: String(hour).padStart(2, "0"),
+        label: `${hour} h`,
+        fullLabel: `De ${hour} h à ${(hour + 1) % 24} h, tous jours confondus`,
+        count: byHour.get(hour) ?? 0,
+      });
+    }
+    return { points, kind: "profile" };
   }
 
-  const days = new Set(keys.map((key) => key.slice(0, 10)));
-  const singleDay = days.size === 1;
+  // Axe continu, heure par heure, entre la première et la dernière partie.
+  const keys = new Set<string>(counts.keys());
+  for (let t = Math.floor(first / HOUR) * HOUR; t <= last; t += HOUR) {
+    keys.add(hourKey(new Date(t)));
+  }
+  const sorted = Array.from(keys).sort();
+  const singleDay = new Set(sorted.map((key) => key.slice(0, 10))).size === 1;
 
-  return keys.map((key) => {
-    const day = key.slice(0, 10);
-    const hour = Number(key.slice(11, 13));
-    return {
-      key,
-      label: singleDay ? `${hour} h` : `${formatWeekday(day)} · ${hour} h`,
-      fullLabel: `${formatWeekday(day)} ${formatDayShort(day).replace(/^\d+\s/, "")}, de ${hour} h à ${(hour + 1) % 24} h`,
-      count: counts.get(key) ?? 0,
-    };
-  });
+  return {
+    kind: "timeline",
+    points: sorted.map((key) => {
+      const day = key.slice(0, 10);
+      const hour = Number(key.slice(11, 13));
+      return {
+        key,
+        label: singleDay ? `${hour} h` : `${formatWeekday(day)} · ${hour} h`,
+        fullLabel: `${formatWeekday(day)} ${formatDayShort(day).replace(/^\d+\s/, "")}, de ${hour} h à ${(hour + 1) % 24} h`,
+        count: counts.get(key) ?? 0,
+      };
+    }),
+  };
 }
 
 /* ───────────────────────────── Assemblage ─────────────────────────────── */
@@ -298,7 +323,8 @@ export function computeStats(sessions: SessionRecord[]): DashboardStats {
     questions: perQuestion,
     scoreDistribution,
     timeline: {
-      hourly,
+      hourly: hourly.points,
+      hourlyKind: hourly.kind,
       daily,
       // Un seul événement (un ou deux jours) : vue par heure ; sinon par jour.
       defaultMode: daily.length <= 2 ? "hour" : "day",

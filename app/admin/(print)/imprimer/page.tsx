@@ -115,38 +115,46 @@ export default async function PrintableReportPage({ searchParams }: Props) {
             <div className="mt-5">
               <StatTiles totals={data.stats.totals} compact />
             </div>
-            <div className="mt-6">
-              <DashboardCharts stats={data.stats} print />
-            </div>
-
-            {data.feedback.length > 0 ? (
-              <section className="mt-6">
-                <h2 className="mb-3 break-after-avoid font-serif text-lg font-semibold text-brun-900">
-                  Quelques mots de participants
-                </h2>
-                <ul className="grid grid-cols-2 gap-3">
-                  {data.feedback.slice(0, 8).map((entry) => (
-                    <li
-                      key={entry.sessionId}
-                      className="break-inside-avoid rounded-lg border border-creme-300 px-4 py-3 text-sm"
-                    >
-                      <p className="font-serif italic leading-snug text-brun-900">
-                        « {entry.comment} »
+            <DashboardCharts
+              stats={data.stats}
+              print
+              printFooter={
+                data.feedback.length > 0 ? (
+                  <section className="mt-5">
+                    <h2 className="mb-3 break-after-avoid font-serif text-lg font-semibold text-brun-900">
+                      Quelques mots de participants
+                    </h2>
+                    <ul className="grid grid-cols-2 gap-3">
+                      {data.feedback.slice(0, 4).map((entry) => (
+                        <li
+                          key={entry.sessionId}
+                          className="break-inside-avoid rounded-lg border border-creme-300 px-4 py-3 text-sm"
+                        >
+                          <p className="line-clamp-5 font-serif italic leading-snug text-brun-900">
+                            « {typo(entry.comment)} »
+                          </p>
+                          <p className="mt-1.5 text-xs text-brun-600">
+                            {entry.firstName ?? "Anonyme"}
+                            {entry.district ? ` · ${typo(entry.district)}` : ""}
+                            {entry.rating !== null ? ` · ${entry.rating}/5` : ""}
+                          </p>
+                        </li>
+                      ))}
+                    </ul>
+                    {data.feedback.length > 4 ? (
+                      <p className="mt-2 text-xs text-brun-600">
+                        Les {data.feedback.length} commentaires sont disponibles dans
+                        l’espace organisateur et dans l’export CSV des avis.
                       </p>
-                      <p className="mt-1.5 text-xs text-brun-600">
-                        {entry.firstName ?? "Anonyme"}
-                        {entry.district ? ` · ${typo(entry.district)}` : ""}
-                        {entry.rating !== null ? ` · ${entry.rating}/5` : ""}
-                      </p>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            ) : null}
+                    ) : null}
+                  </section>
+                ) : null
+              }
+            />
           </>
         )}
 
-        <footer className="mt-8 border-t border-creme-300 pt-3 text-xs text-brun-600">
+        <footer className="mt-6 break-inside-avoid border-t border-creme-300 pt-3 text-xs text-brun-600">
           {typo(site.title)} — bilan généré depuis l’espace organisateur. Données
           anonymes, utilisées uniquement pour les statistiques du jeu.
         </footer>
