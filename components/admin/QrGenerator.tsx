@@ -8,8 +8,8 @@ import { buildPlayUrl } from "@/lib/site-url";
 import { cleanSource } from "@/lib/validation";
 
 type Props = {
-  /** Valeur de NEXT_PUBLIC_SITE_URL, ou `null` si elle n'est pas définie. */
-  siteUrl: string | null;
+  /** Adresse publique du jeu (https://qcm-argenteuil.vercel.app par défaut). */
+  siteUrl: string;
 };
 
 const CUSTOM = "__autre";
@@ -38,26 +38,16 @@ function download(href: string, filename: string): void {
 export function QrGenerator({ siteUrl }: Props) {
   const [choice, setChoice] = useState<string>(defaultSources[0].id);
   const [custom, setCustom] = useState("");
-  const [origin, setOrigin] = useState<string | null>(siteUrl);
   const [svg, setSvg] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
 
-  // Sans NEXT_PUBLIC_SITE_URL, on se rabat sur l'adresse de la page en cours.
-  useEffect(() => {
-    if (!siteUrl) setOrigin(window.location.origin);
-  }, [siteUrl]);
-
   const source =
     choice === NONE ? null : choice === CUSTOM ? cleanSource(custom) : choice;
-  const url = useMemo(
-    () => (origin ? buildPlayUrl(origin, source) : null),
-    [origin, source],
-  );
+  const url = useMemo(() => buildPlayUrl(siteUrl, source), [siteUrl, source]);
   const fileBase = `qr-secrets-gourmands${source ? `-${source}` : ""}`;
 
   useEffect(() => {
-    if (!url) return;
     let cancelled = false;
     QRCode.toString(url, { ...QR_OPTIONS, type: "svg", margin: 2 })
       .then((markup) => {
@@ -74,7 +64,6 @@ export function QrGenerator({ siteUrl }: Props) {
   }, [url]);
 
   const downloadPng = async () => {
-    if (!url) return;
     try {
       const dataUrl = await QRCode.toDataURL(url, {
         ...QR_OPTIONS,
@@ -88,7 +77,6 @@ export function QrGenerator({ siteUrl }: Props) {
   };
 
   const downloadSvg = async () => {
-    if (!url) return;
     try {
       const markup = await QRCode.toString(url, {
         ...QR_OPTIONS,
@@ -107,7 +95,6 @@ export function QrGenerator({ siteUrl }: Props) {
   };
 
   const copyUrl = async () => {
-    if (!url) return;
     try {
       await navigator.clipboard.writeText(url);
       setCopied(true);
@@ -190,12 +177,11 @@ export function QrGenerator({ siteUrl }: Props) {
           <h2 className="text-base font-semibold text-brun-900">Adresse encodée</h2>
           <div className="mt-2 flex flex-wrap items-center gap-3">
             <code className="min-w-0 flex-1 break-all rounded-lg bg-creme-100 px-3 py-2.5 font-mono text-sm text-brun-900">
-              {url ?? "…"}
+              {url}
             </code>
             <button
               type="button"
               onClick={copyUrl}
-              disabled={!url}
               className="h-11 rounded-full border border-brun-500 px-4 text-[0.9375rem] font-semibold text-brun-800 transition-colors hover:bg-creme-200 disabled:opacity-60"
             >
               {copied ? "Copié ✓" : "Copier"}
@@ -204,14 +190,10 @@ export function QrGenerator({ siteUrl }: Props) {
           <p className="sr-only" role="status">
             {copied ? "Adresse copiée dans le presse-papiers." : ""}
           </p>
-          {!siteUrl ? (
-            <p className="mt-3 rounded-lg border border-or-500 bg-[#fdf6e7] px-3 py-2.5 text-sm text-brun-800">
-              <strong className="font-semibold">Attention :</strong> la variable{" "}
-              <code>NEXT_PUBLIC_SITE_URL</code> n’est pas définie. Le QR code
-              pointe vers l’adresse actuelle de cette page ; vérifiez que c’est
-              bien l’adresse publique du jeu avant d’imprimer.
-            </p>
-          ) : null}
+          <p className="mt-3 text-sm text-brun-600">
+            Le QR code mène toujours à l’adresse publique du jeu, même quand
+            cette page est ouverte ailleurs.
+          </p>
         </section>
 
         <section className="rounded-2xl border border-creme-300 bg-[#fffdf8] p-5 sm:p-6">
@@ -252,7 +234,7 @@ export function QrGenerator({ siteUrl }: Props) {
           {svg ? (
             <div
               role="img"
-              aria-label={`QR code vers ${url ?? "le jeu"}`}
+              aria-label={`QR code vers ${url}`}
               className="aspect-square w-full [&>svg]:h-full [&>svg]:w-full"
               // Balisage SVG produit par la bibliothèque `qrcode` à partir de notre propre adresse.
               dangerouslySetInnerHTML={{ __html: svg }}
@@ -274,7 +256,6 @@ export function QrGenerator({ siteUrl }: Props) {
           <button
             type="button"
             onClick={downloadPng}
-            disabled={!url}
             className={`${actionClasses} bg-asperge-700 text-white hover:bg-asperge-800`}
           >
             Télécharger PNG (haute résolution)
@@ -282,7 +263,6 @@ export function QrGenerator({ siteUrl }: Props) {
           <button
             type="button"
             onClick={downloadSvg}
-            disabled={!url}
             className={`${actionClasses} border-2 border-asperge-700 bg-white text-asperge-800 hover:bg-sauge-100`}
           >
             Télécharger SVG

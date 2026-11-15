@@ -84,10 +84,10 @@ Internet. Tout passe par les routes du site.
 
 | Variable                    | Rôle                                                                 | Exemple                         |
 | --------------------------- | -------------------------------------------------------------------- | ------------------------------- |
-| `NEXT_PUBLIC_SITE_URL`      | Adresse publique du site, sans barre finale. Sert aux QR codes et aux aperçus de lien. | `https://jeu.exemple.fr`        |
 | `SUPABASE_URL`              | Adresse du projet Supabase                                           | `https://abcd1234.supabase.co`  |
 | `SUPABASE_SERVICE_ROLE_KEY` | Clé secrète du projet Supabase (serveur uniquement)                  | `eyJ…` ou `sb_secret_…`         |
 | `ADMIN_PASSWORD`            | Mot de passe de l'espace organisateur. Choisissez-le long.           | une phrase de plusieurs mots    |
+| `NEXT_PUBLIC_SITE_URL`      | **Facultatif.** Adresse vers laquelle pointent les QR codes. Par défaut : `https://qcm-argenteuil.vercel.app`. À renseigner seulement si l'adresse change. | `https://jeu.exemple.fr` |
 
 En local, elles vont dans `.env.local` (fichier jamais envoyé sur GitHub). Sur
 Vercel, elles se règlent dans les paramètres du projet (section suivante).
@@ -99,19 +99,20 @@ Vercel, elles se règlent dans les paramètres du projet (section suivante).
 2. Sur [vercel.com](https://vercel.com), cliquez sur **Add New… → Project** et
    importez le dépôt. Vercel reconnaît Next.js tout seul : ne changez rien aux
    réglages de construction.
-3. Avant de valider, dépliez **Environment Variables** et ajoutez les quatre
-   variables de la section 3. Pour `NEXT_PUBLIC_SITE_URL`, mettez l'adresse que
-   Vercel va vous attribuer (par exemple `https://mon-projet.vercel.app`) ou
-   votre nom de domaine si vous en avez un.
-4. Cliquez sur **Deploy**.
-5. Si l'adresse finale diffère de celle saisie à l'étape 3 (ajout d'un nom de
-   domaine dans **Settings → Domains**, par exemple) : corrigez
-   `NEXT_PUBLIC_SITE_URL` dans **Settings → Environment Variables**, puis
-   relancez un déploiement (**Deployments → ⋯ → Redeploy**). Cette variable est
-   lue au moment de la construction : sans nouveau déploiement, l'ancienne
-   adresse resterait dans les QR codes.
+3. Nommez le projet **`qcm-argenteuil`** : le site sera alors à l'adresse
+   `https://qcm-argenteuil.vercel.app`, celle qu'utilisent les QR codes.
+4. Avant de valider, dépliez **Environment Variables** et ajoutez les trois
+   variables obligatoires de la section 3 (`SUPABASE_URL`,
+   `SUPABASE_SERVICE_ROLE_KEY`, `ADMIN_PASSWORD`).
+5. Cliquez sur **Deploy**.
 6. Ouvrez le site, jouez une partie, puis vérifiez dans `/admin` qu'elle
    apparaît.
+
+Si un jour le site change d'adresse (nom de domaine personnalisé, par
+exemple) : ajoutez `NEXT_PUBLIC_SITE_URL` avec la nouvelle adresse dans
+**Settings → Environment Variables**, puis relancez un déploiement
+(**Deployments → ⋯ → Redeploy**). Sans nouveau déploiement, les QR codes
+garderaient l'ancienne adresse.
 
 Chaque envoi sur la branche principale du dépôt redéploie ensuite le site
 automatiquement.
@@ -176,9 +177,11 @@ typographiques (`’`) à l'affichage : écrivez simplement.
    Dans la fenêtre d'impression, réglez les marges sur « Aucune » et cochez
    « Graphiques d'arrière-plan » pour conserver le fond crème.
 
-> ⚠️ Un QR code imprimé ne se modifie plus. Générez-les **après** avoir fixé
-> l'adresse définitive du site (`NEXT_PUBLIC_SITE_URL`), et testez-en un avec
-> votre téléphone avant de lancer l'impression.
+Les QR codes mènent à `https://qcm-argenteuil.vercel.app` (l'adresse exacte
+est affichée sous « Adresse encodée »).
+
+> ⚠️ Un QR code imprimé ne se modifie plus : vérifiez l'adresse encodée, et
+> testez un QR code avec votre téléphone avant de lancer l'impression.
 
 ## 7. L'espace organisateur
 
@@ -307,10 +310,9 @@ Technologies : Next.js 15 (App Router), TypeScript, Tailwind CSS 4, Supabase
 
 ## 11. Avant le jour J : la liste de vérification
 
-- [ ] `supabase/schema.sql` exécuté dans Supabase ; les quatre variables
-      renseignées sur Vercel.
-- [ ] `NEXT_PUBLIC_SITE_URL` correspond à l'adresse définitive, et le site a été
-      redéployé depuis.
+- [ ] `supabase/schema.sql` exécuté dans Supabase ; les trois variables
+      obligatoires renseignées sur Vercel.
+- [ ] Le site répond bien sur `https://qcm-argenteuil.vercel.app`.
 - [ ] Une partie jouée de bout en bout sur un téléphone, en 4G ; elle apparaît
       dans `/admin`.
 - [ ] Liste des quartiers (`data/districts.ts`) et page confidentialité
@@ -329,6 +331,6 @@ Technologies : Next.js 15 (App Router), TypeScript, Tailwind CSS 4, Supabase
 | `/admin` affiche « La base de données n'est pas encore branchée » | `SUPABASE_URL` ou `SUPABASE_SERVICE_ROLE_KEY` manquante. Après correction sur Vercel : redéployer. |
 | `/admin` affiche « Impossible de lire les données »             | Le schéma n'a pas été exécuté, ou la clé n'est pas la clé secrète (`service_role`).            |
 | La connexion indique que `ADMIN_PASSWORD` est manquante         | Ajoutez la variable, puis redéployez.                                                          |
-| Le QR code mène à `localhost` ou à une ancienne adresse         | Corrigez `NEXT_PUBLIC_SITE_URL`, redéployez, puis régénérez le QR code.                        |
+| Le QR code mène à une mauvaise adresse                          | Vérifiez que le projet Vercel s'appelle bien `qcm-argenteuil`, ou réglez `NEXT_PUBLIC_SITE_URL`, redéployez, puis régénérez le QR code. |
 | Un visiteur voit « Connexion instable »                         | Ses réponses sont gardées sur son téléphone et partiront dès le retour du réseau.              |
 | Les parties n'apparaissent pas dans le tableau de bord          | Vérifiez les filtres (période, source) et les journaux du projet sur Vercel (onglet **Logs**). |

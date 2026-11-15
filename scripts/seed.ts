@@ -79,7 +79,7 @@ const WARM_COMMENTS = [
   "Belle surprise sur la table, merci à l'équipe.",
   "Les anecdotes après chaque question sont une très bonne idée.",
   "On a joué en famille, 4 sur 5 pour tout le monde.",
-  "Mes parents étaient maraîchers au Val Notre-Dame, merci pour ce clin d'œil.",
+  "Mes parents étaient maraîchers au Val-Notre-Dame, merci pour ce clin d'œil.",
   "Rapide, sympa et instructif.",
 ];
 

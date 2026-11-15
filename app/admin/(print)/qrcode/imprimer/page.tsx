@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { headers } from "next/headers";
 import Link from "next/link";
 import QRCode from "qrcode";
 
@@ -25,15 +24,6 @@ type Props = {
 const first = (value: string | string[] | undefined) =>
   Array.isArray(value) ? value[0] : value;
 
-/** Adresse publique du site, ou à défaut celle de la requête en cours. */
-async function resolveBaseUrl(): Promise<string> {
-  const configured = getSiteUrl();
-  if (configured) return configured;
-  const h = await headers();
-  const host = h.get("x-forwarded-host") ?? h.get("host") ?? "localhost:3000";
-  const protocol = h.get("x-forwarded-proto") ?? (host.startsWith("localhost") ? "http" : "https");
-  return `${protocol}://${host}`;
-}
 
 function QrBlock({ svg, size }: { svg: string; size: string }) {
   return (
@@ -130,7 +120,7 @@ export default async function QrPrintPage({ searchParams }: Props) {
 
   const format: Format = first(params.format) === "chevalet" ? "chevalet" : "a5";
   const source = cleanSource(first(params.src));
-  const baseUrl = await resolveBaseUrl();
+  const baseUrl = getSiteUrl();
   const playUrl = buildPlayUrl(baseUrl, source);
   const displayUrl = baseUrl.replace(/^https?:\/\//, "");
 

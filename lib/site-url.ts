@@ -1,15 +1,21 @@
 /**
- * Adresse publique du site (variable NEXT_PUBLIC_SITE_URL), sans barre finale.
- * Renvoie `null` si elle n'est pas définie ou invalide.
+ * Adresse publique du jeu : c'est vers elle que pointent les QR codes.
+ *
+ * Par défaut : https://qcm-argenteuil.vercel.app
+ * Pour en changer (nom de domaine personnalisé, par exemple), il suffit de
+ * définir la variable NEXT_PUBLIC_SITE_URL sur Vercel, puis de redéployer.
  */
-export function getSiteUrl(): string | null {
+export const DEFAULT_SITE_URL = "https://qcm-argenteuil.vercel.app";
+
+/** Adresse publique du site, sans barre finale. */
+export function getSiteUrl(): string {
   const raw = process.env.NEXT_PUBLIC_SITE_URL?.trim();
-  if (!raw) return null;
+  if (!raw) return DEFAULT_SITE_URL;
   try {
     const url = new URL(/^https?:\/\//i.test(raw) ? raw : `https://${raw}`);
     return url.toString().replace(/\/+$/, "");
   } catch {
-    return null;
+    return DEFAULT_SITE_URL;
   }
 }
 

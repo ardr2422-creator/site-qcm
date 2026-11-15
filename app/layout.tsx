@@ -24,7 +24,7 @@ const title = typo(site.title);
 const description = typo(site.description);
 
 export const metadata: Metadata = {
-  metadataBase: new URL(getSiteUrl() ?? "http://localhost:3000"),
+  metadataBase: new URL(getSiteUrl()),
   title: {
     default: title,
     template: `%s · ${title}`,
