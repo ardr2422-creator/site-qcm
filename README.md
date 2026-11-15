@@ -29,7 +29,7 @@ restituées dans un tableau de bord pour l'organisateur.
 
 ## 1. Installation en local
 
-Prérequis : [Node.js](https://nodejs.org) 20 ou plus récent.
+Prérequis : [Node.js](https://nodejs.org) 22 (version 22.18 ou plus récente).
 
 ```bash
 npm install

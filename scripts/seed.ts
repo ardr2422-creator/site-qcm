@@ -9,9 +9,9 @@
  * Avant le vrai lancement, videz tout avec : npm run reset
  */
 
-import { districts, DISTRICT_OTHER } from "../data/districts";
-import { getCorrectOption, questions } from "../data/questions";
-import { countRows, describeTarget, getScriptClient } from "./_client";
+import { districts, DISTRICT_OTHER } from "../data/districts.ts";
+import { getCorrectOption, questions } from "../data/questions.ts";
+import { countRows, describeTarget, getScriptClient } from "./_client.ts";
 
 /* ─────────────────────────── Hasard reproductible ─────────────────────── */
 

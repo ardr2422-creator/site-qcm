@@ -1,7 +1,7 @@
-import { loadEnvConfig } from "@next/env";
+import nextEnv from "@next/env";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
-import { explainDatabaseError, readSupabaseConfig } from "../lib/supabase-config";
+import { explainDatabaseError, readSupabaseConfig } from "../lib/supabase-config.ts";
 
 /**
  * Client Supabase pour les scripts en ligne de commande (`npm run seed`,
@@ -9,6 +9,8 @@ import { explainDatabaseError, readSupabaseConfig } from "../lib/supabase-config
  * comme le fait Next.js.
  */
 
+// @next/env est un module CommonJS : import par défaut, puis déstructuration.
+const { loadEnvConfig } = nextEnv;
 loadEnvConfig(process.cwd(), true, { info: () => undefined, error: console.error });
 
 export function getScriptClient(): SupabaseClient {

@@ -10,7 +10,7 @@
 
 import { createInterface } from "node:readline/promises";
 
-import { countRows, describeTarget, getScriptClient } from "./_client";
+import { countRows, describeTarget, getScriptClient } from "./_client.ts";
 
 const CONFIRMATION_WORD = "SUPPRIMER";
 

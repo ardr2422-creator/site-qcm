@@ -8,8 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "seed": "tsx scripts/seed.ts",
-    "reset": "tsx scripts/reset.ts"
+    "seed": "node scripts/seed.ts",
+    "reset": "node scripts/reset.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.119.0",
@@ -31,10 +31,9 @@
     "eslint": "^9",
     "eslint-config-next": "15.5.29",
     "tailwindcss": "^4",
-    "tsx": "^4.23.15",
     "typescript": "^5"
   },
   "engines": {
-    "node": ">=20"
+    "node": "22.x"
   }
 }
