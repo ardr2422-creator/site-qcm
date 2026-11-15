@@ -318,6 +318,9 @@ Technologies : Next.js 15 (App Router), TypeScript, Tailwind CSS 4, Supabase
 - [ ] `npm run reset` lancé pour effacer les données de démonstration.
 - [ ] QR codes générés, imprimés, et **testés** avec deux téléphones différents.
 - [ ] Mot de passe de l'espace organisateur transmis aux bonnes personnes.
+- [ ] Plus aucune mise en ligne prévue pendant l'événement : un redéploiement
+      en cours de partie oblige les visiteurs à recharger la page (leurs
+      réponses sont conservées).
 
 ## 12. En cas de souci
 

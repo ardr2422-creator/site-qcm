@@ -2,18 +2,22 @@
 
 import { useEffect } from "react";
 
-import { Button, ButtonLink } from "@/components/ui/Button";
+import { Button, buttonClasses } from "@/components/ui/Button";
 
 type Props = {
   error: Error & { digest?: string };
-  reset: () => void;
 };
 
 /** Filet de sécurité : une erreur inattendue ne laisse jamais un écran blanc. */
-export default function GlobalError({ error, reset }: Props) {
+export default function GlobalError({ error }: Props) {
   useEffect(() => {
     console.error(error);
   }, [error]);
+
+  // Un rechargement complet plutôt qu'un simple nouvel essai : la partie est
+  // gardée sur l'appareil, et cela répare aussi le cas d'une page restée
+  // ouverte pendant une mise à jour du site.
+  const retry = () => window.location.reload();
 
   return (
     <main className="mx-auto flex min-h-dvh w-full max-w-xl flex-col justify-center px-4 py-10">
@@ -27,10 +31,12 @@ export default function GlobalError({ error, reset }: Props) {
           Réessayez dans un instant.
         </p>
         <div className="mt-7 flex flex-col items-center gap-3">
-          <Button onClick={reset}>Réessayer</Button>
-          <ButtonLink href="/" variant="quiet" size="md">
+          <Button onClick={retry}>Réessayer</Button>
+          {/* Lien classique (rechargement complet), volontairement sans <Link>. */}
+          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+          <a href="/" className={buttonClasses("quiet", "md")}>
             Retour à l’accueil
-          </ButtonLink>
+          </a>
         </div>
       </div>
     </main>

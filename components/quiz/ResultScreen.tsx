@@ -59,15 +59,16 @@ export function ResultScreen() {
         <p className="surtitre">
           {game.firstName ? `Bravo ${game.firstName} !` : "Votre résultat"}
         </p>
-        <p
-          className="mx-auto mt-4 flex h-36 w-36 flex-col items-center justify-center rounded-full border-2 border-figue-500 bg-figue-50 outline outline-1 outline-offset-4 outline-figue-200"
+        <div
+          role="img"
           aria-label={`Votre score : ${score} sur ${total}`}
+          className="mx-auto mt-4 flex h-36 w-36 flex-col items-center justify-center rounded-full border-2 border-figue-500 bg-figue-50 outline outline-1 outline-offset-4 outline-figue-200"
         >
           <span className="font-serif text-6xl font-semibold leading-none text-figue-600" aria-hidden="true">
             {score}
             <span className="text-3xl text-figue-500">/{total}</span>
           </span>
-        </p>
+        </div>
         <h1
           id="titre-resultat"
           className="mt-6 text-balance font-serif text-3xl font-semibold leading-tight text-brun-900"

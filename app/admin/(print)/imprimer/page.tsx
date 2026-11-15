@@ -61,7 +61,7 @@ export default async function PrintableReportPage({ searchParams }: Props) {
       {/* Format de page pour l'impression et l'export PDF. */}
       <style>{`@page { size: A4 portrait; margin: 12mm; }`}</style>
 
-      <div className="sticky top-0 z-10 border-b border-creme-400 bg-creme-50 print:hidden">
+      <header className="sticky top-0 z-10 border-b border-creme-400 bg-creme-50 print:hidden">
         <div className="mx-auto flex max-w-[760px] flex-wrap items-center justify-between gap-3 px-4 py-3">
           <Link
             href={`/admin${filtersToQuery(filters)}`}
@@ -76,10 +76,10 @@ export default async function PrintableReportPage({ searchParams }: Props) {
             <PrintButton />
           </div>
         </div>
-      </div>
+      </header>
 
       {/* La feuille : 664 px de contenu, à l'écran comme à l'impression. */}
-      <div className="mx-auto my-6 box-content w-[664px] bg-white px-6 py-8 shadow-xl print:my-0 print:p-0 print:shadow-none">
+      <main className="mx-auto my-6 box-content w-[664px] bg-white px-6 py-8 shadow-xl print:my-0 print:p-0 print:shadow-none">
         <header className="flex items-end justify-between gap-6 border-b-2 border-brun-900 pb-4">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-asperge-700">
@@ -158,7 +158,7 @@ export default async function PrintableReportPage({ searchParams }: Props) {
           {typo(site.title)} — bilan généré depuis l’espace organisateur. Données
           anonymes, utilisées uniquement pour les statistiques du jeu.
         </footer>
-      </div>
+      </main>
     </>
   );
 }

@@ -159,7 +159,7 @@ export default async function QrPrintPage({ searchParams }: Props) {
         }
       `}</style>
 
-      <div className="sticky top-0 z-10 border-b border-creme-400 bg-creme-50 print:hidden">
+      <header className="sticky top-0 z-10 border-b border-creme-400 bg-creme-50 print:hidden">
         <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-between gap-3 px-4 py-3">
           <Link
             href="/admin/qrcode"
@@ -191,16 +191,16 @@ export default async function QrPrintPage({ searchParams }: Props) {
             : "Papier A4, marges « Aucune », « Graphiques d’arrière-plan » coché. Pliez ensuite la feuille en deux sur le trait : les deux faces se lisent à l’endroit."}
           {source ? ` Source encodée : ${source}.` : " Aucune source encodée."}
         </p>
-      </div>
+      </header>
 
-      <div className="overflow-x-auto px-4 py-8 print:p-0">
+      <main className="overflow-x-auto px-4 py-8 print:p-0">
         <div className="feuille mx-auto w-fit shadow-2xl print:shadow-none">
           {format === "a5" ? (
             <PosterA5 svg={svg} displayUrl={displayUrl} />
           ) : (
             <div className="relative h-[297mm] w-[210mm] overflow-hidden bg-creme-50">
               {/* Face arrière, tête en bas : elle se lit à l'endroit une fois la feuille pliée. */}
-              <div className="rotate-180">
+              <div className="rotate-180" aria-hidden="true">
                 <TentFace svg={svg} displayUrl={displayUrl} />
               </div>
               <TentFace svg={svg} displayUrl={displayUrl} />
@@ -211,7 +211,7 @@ export default async function QrPrintPage({ searchParams }: Props) {
             </div>
           )}
         </div>
-      </div>
+      </main>
     </>
   );
 }
