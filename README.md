@@ -145,9 +145,9 @@ Une devinette ressemble à ceci :
   text: "Je relie deux rives au-dessus de la Seine. […] Qui suis-je ?",
   options: [
     { id: "pont-argenteuil", label: "Le pont d'Argenteuil", correct: true },
-    { id: "pont-bezons", label: "Le pont de Bezons" },
-    { id: "pont-saint-ouen", label: "Le pont de Saint-Ouen" },
-    { id: "pont-neuilly", label: "Le pont de Neuilly" },
+    { id: "viaduc-a15", label: "Le viaduc de l'A15" },
+    { id: "chemin-halage", label: "Le chemin de halage" },
+    { id: "plataneraie", label: "La Plataneraie" },
   ],
   anecdote: "Claude Monet, installé à Argenteuil de 1871 à 1878, […]",
 },

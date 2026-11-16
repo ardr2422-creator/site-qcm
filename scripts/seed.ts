@@ -102,11 +102,11 @@ const BASE_SUCCESS: Record<number, number> = { 1: 0.86, 2: 0.7, 3: 0.63, 4: 0.52
 
 /** Les mauvaises réponses ne sont pas choisies au hasard : certaines piègent plus. */
 const WRONG_WEIGHTS: Record<number, Record<string, number>> = {
-  1: { "pont-bezons": 55, "pont-neuilly": 25, "pont-saint-ouen": 20 },
-  2: { "berges-marne": 45, "bord-oise": 40, "canal-saint-martin": 15 },
-  3: { "butte-sannois": 55, "mont-valerien": 25, "butte-montmartre": 20 },
-  4: { "parc-pommiers": 40, "parc-poirier": 40, "parc-olivier": 20 },
-  5: { "pomme-de-terre-cerise": 45, "navet-poire": 30, "carotte-raisin": 25 },
+  1: { "viaduc-a15": 60, "chemin-halage": 22, plataneraie: 18 },
+  2: { "tour-billy": 40, "abbaye-notre-dame": 35, "basilique-saint-denys": 25 },
+  3: { "butte-chataigniers": 60, coteaux: 28, "val-notre-dame": 12 },
+  4: { "parc-berges": 45, "parc-champioux": 30, "parc-mirabeau": 25 },
+  5: { "fraises-framboises": 45, "cerises-lentilles": 35, "vin-platre": 20 },
 };
 
 const DISTRICT_WEIGHTS: readonly (readonly [string | null, number])[] = [

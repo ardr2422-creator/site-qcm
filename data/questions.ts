@@ -18,6 +18,10 @@
  *
  *  L'ordre d'affichage des réponses est mélangé à chaque partie : l'ordre
  *  dans ce fichier n'a donc aucune importance.
+ *
+ *  Les mauvaises réponses sont toutes des lieux ou des produits réels
+ *  d'Argenteuil, vérifiés (document « mauvaises réponses vérifiées »).
+ *  Un même lieu n'apparaît que dans une seule question.
  * ─────────────────────────────────────────────────────────────────────────
  */
 
@@ -40,9 +44,9 @@ export const questions: QuizQuestion[] = [
     text: "Je relie deux rives au-dessus de la Seine. Un peintre impressionniste m'a immortalisé à plusieurs reprises en 1874. Qui suis-je ?",
     options: [
       { id: "pont-argenteuil", label: "Le pont d'Argenteuil", correct: true },
-      { id: "pont-bezons", label: "Le pont de Bezons" },
-      { id: "pont-saint-ouen", label: "Le pont de Saint-Ouen" },
-      { id: "pont-neuilly", label: "Le pont de Neuilly" },
+      { id: "viaduc-a15", label: "Le viaduc de l'A15" },
+      { id: "chemin-halage", label: "Le chemin de halage" },
+      { id: "plataneraie", label: "La Plataneraie" },
     ],
     anecdote:
       "Claude Monet, installé à Argenteuil de 1871 à 1878, a peint le pont plusieurs fois en 1874.",
@@ -52,21 +56,21 @@ export const questions: QuizQuestion[] = [
     text: "J'ai inspiré les peintres, les promeneurs et les amateurs de voile. Autrefois, les bateaux et les régates animaient mes eaux. Où êtes-vous ?",
     options: [
       { id: "quai-seine", label: "Le quai de Seine", correct: true },
-      { id: "bord-oise", label: "Le bord de l'Oise" },
-      { id: "canal-saint-martin", label: "Le canal Saint-Martin" },
-      { id: "berges-marne", label: "Les berges de la Marne" },
+      { id: "basilique-saint-denys", label: "La basilique Saint-Denys" },
+      { id: "tour-billy", label: "La tour Billy" },
+      { id: "abbaye-notre-dame", label: "L'abbaye Notre-Dame" },
     ],
     anecdote:
       "Au XIXe siècle, Argenteuil était un haut lieu de la voile et des régates, ce qui a attiré les impressionnistes.",
   },
   {
     id: 3,
-    text: "Je prends de la hauteur au-dessus de la ville. Longtemps exploitée pour une pierre appelée gypse, j'offre aujourd'hui une belle promenade et un grand panorama. Quel lieu suis-je ?",
+    text: "Je prends de la hauteur au-dessus de la ville. Un moulin du XVIe siècle me coiffe, et 250 marches mènent à mon grand panorama. Quel lieu suis-je ?",
     options: [
       { id: "butte-orgemont", label: "La butte d'Orgemont", correct: true },
-      { id: "butte-montmartre", label: "La butte Montmartre" },
-      { id: "mont-valerien", label: "Le mont Valérien" },
-      { id: "butte-sannois", label: "La butte de Sannois" },
+      { id: "coteaux", label: "Les Coteaux" },
+      { id: "butte-chataigniers", label: "La butte des Châtaigniers" },
+      { id: "val-notre-dame", label: "Le Val-Notre-Dame" },
     ],
     anecdote:
       "Le gypse extrait sur place servait à fabriquer le plâtre, une industrie importante de la région.",
@@ -76,9 +80,9 @@ export const questions: QuizQuestion[] = [
     text: "Mon nom évoque un arbre fruitier. Je rappelle, avec les espaces agricoles de la ville, un passé où la nature et les cultures faisaient partie du paysage. Quel parc suis-je ?",
     options: [
       { id: "parc-cerisier", label: "Le parc du Cerisier", correct: true },
-      { id: "parc-pommiers", label: "Le parc des Pommiers" },
-      { id: "parc-olivier", label: "Le parc de l'Olivier" },
-      { id: "parc-poirier", label: "Le parc du Poirier" },
+      { id: "parc-champioux", label: "Le parc des Champioux" },
+      { id: "parc-mirabeau", label: "Le parc Mirabeau" },
+      { id: "parc-berges", label: "Le parc des Berges" },
     ],
     anecdote:
       "Argenteuil a longtemps été une ville de vergers, de vignes et de maraîchage.",
@@ -92,9 +96,9 @@ export const questions: QuizQuestion[] = [
         label: "L'asperge d'Argenteuil et la figue",
         correct: true,
       },
-      { id: "pomme-de-terre-cerise", label: "La pomme de terre et la cerise" },
-      { id: "navet-poire", label: "Le navet et la poire" },
-      { id: "carotte-raisin", label: "La carotte et le raisin" },
+      { id: "cerises-lentilles", label: "Les cerises et les lentilles" },
+      { id: "fraises-framboises", label: "Les fraises et les framboises" },
+      { id: "vin-platre", label: "Le vin et le plâtre" },
     ],
     anecdote:
       "L'asperge d'Argenteuil était servie sur les grandes tables parisiennes, et la figue d'Argenteuil était aussi très réputée.",

@@ -8,8 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "seed": "node scripts/seed.ts",
-    "reset": "node scripts/reset.ts"
+    "seed": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/seed.ts",
+    "reset": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/reset.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.119.0",
