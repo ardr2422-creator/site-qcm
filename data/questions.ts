@@ -93,7 +93,7 @@ export const questions: QuizQuestion[] = [
     options: [
       {
         id: "asperge-figue",
-        label: "L'asperge d'Argenteuil et la figue",
+        label: "L'asperge et la figue",
         correct: true,
       },
       { id: "cerises-lentilles", label: "Les cerises et les lentilles" },
