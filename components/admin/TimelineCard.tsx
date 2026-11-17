@@ -36,7 +36,7 @@ export function TimelineCard({ timeline, fixedWidth, height = 250, print = false
     <div
       role="group"
       aria-label="Regrouper les participations"
-      className="inline-flex rounded-full border border-creme-400 bg-creme-100 p-0.5 text-sm font-semibold"
+      className="inline-flex rounded-full border border-givre-400 bg-givre-100 p-0.5 text-sm font-semibold"
     >
       {(
         [
@@ -51,8 +51,8 @@ export function TimelineCard({ timeline, fixedWidth, height = 250, print = false
           onClick={() => setMode(value)}
           className={`rounded-full px-3.5 py-1.5 transition-colors ${
             mode === value
-              ? "bg-asperge-700 text-white"
-              : "text-brun-700 hover:text-brun-900"
+              ? "bg-bleu-700 text-white"
+              : "text-nuit-700 hover:text-nuit-900"
           }`}
         >
           {label}

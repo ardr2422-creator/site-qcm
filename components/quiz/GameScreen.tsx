@@ -30,7 +30,7 @@ function LoadingCard() {
       className="carte my-auto flex min-h-64 items-center justify-center px-6 py-10"
       role="status"
     >
-      <p className="font-serif text-xl italic text-brun-600">
+      <p className="font-serif text-xl italic text-nuit-600">
         Le jeu se prépare…
       </p>
     </div>

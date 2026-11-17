@@ -11,5 +11,5 @@ export default async function PrintLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   await requireAdmin();
-  return <div className="min-h-dvh bg-creme-200 text-base print:bg-white">{children}</div>;
+  return <div className="min-h-dvh bg-givre-200 text-base print:bg-white">{children}</div>;
 }

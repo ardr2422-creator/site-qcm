@@ -15,10 +15,10 @@ type Props = {
 };
 
 const fieldClasses =
-  "mt-1 block h-11 w-full rounded-lg border border-brun-500 bg-white px-3 text-brun-900 " +
-  "focus:border-asperge-700 focus:outline-none focus-visible:outline-3 focus-visible:outline-offset-1 focus-visible:outline-figue-500";
+  "mt-1 block h-11 w-full rounded-lg border border-nuit-500 bg-white px-3 text-nuit-900 " +
+  "focus:border-bleu-700 focus:outline-none focus-visible:outline-3 focus-visible:outline-offset-1 focus-visible:outline-ciel-500";
 
-const labelClasses = "text-sm font-medium text-brun-700";
+const labelClasses = "text-sm font-medium text-nuit-700";
 
 /**
  * Filtres du tableau de bord : un simple formulaire GET, qui fonctionne sans
@@ -42,7 +42,7 @@ export function FiltersBar({ filters, sources, hasSessionsWithoutSource }: Props
   return (
     <section
       aria-label="Filtres"
-      className="rounded-2xl border border-creme-300 bg-[#fffdf8] p-4 sm:p-5"
+      className="rounded-2xl border border-givre-300 bg-white p-4 sm:p-5"
     >
       <form
         method="get"
@@ -94,27 +94,27 @@ export function FiltersBar({ filters, sources, hasSessionsWithoutSource }: Props
             ) : null}
           </select>
         </div>
-        <label className="col-span-2 flex h-11 cursor-pointer items-center gap-2.5 text-[0.9375rem] text-brun-800 md:w-auto">
+        <label className="col-span-2 flex h-11 cursor-pointer items-center gap-2.5 text-[0.9375rem] text-nuit-800 md:w-auto">
           <input
             type="checkbox"
             name="rejouees"
             value="1"
             defaultChecked={filters.includeReplays}
-            className="h-5 w-5 rounded border-brun-500 accent-asperge-700"
+            className="h-5 w-5 rounded border-nuit-500 accent-bleu-700"
           />
           Inclure les parties rejouées
         </label>
         <div className="col-span-2 flex items-center gap-3 md:ml-auto">
           <button
             type="submit"
-            className="h-11 rounded-full bg-asperge-700 px-6 font-semibold text-white transition-colors hover:bg-asperge-800"
+            className="h-11 rounded-full bg-bleu-700 px-6 font-semibold text-white transition-colors hover:bg-bleu-800"
           >
             Appliquer
           </button>
           {hasActiveFilters(filters) ? (
             <Link
               href="/admin"
-              className="text-[0.9375rem] font-medium text-brun-700 underline decoration-brun-400 underline-offset-4 hover:text-figue-600"
+              className="text-[0.9375rem] font-medium text-nuit-700 underline decoration-nuit-400 underline-offset-4 hover:text-ciel-600"
             >
               Réinitialiser
             </Link>
@@ -122,7 +122,7 @@ export function FiltersBar({ filters, sources, hasSessionsWithoutSource }: Props
         </div>
       </form>
 
-      <p className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1.5 border-t border-creme-200 pt-3 text-sm text-brun-600">
+      <p className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1.5 border-t border-givre-200 pt-3 text-sm text-nuit-600">
         <span>Raccourcis :</span>
         {presets.map((preset) => {
           const active = filters.from === preset.from && filters.to === preset.to;
@@ -133,8 +133,8 @@ export function FiltersBar({ filters, sources, hasSessionsWithoutSource }: Props
               aria-current={active ? "true" : undefined}
               className={`rounded-full border px-3 py-1 font-medium transition-colors ${
                 active
-                  ? "border-asperge-700 bg-sauge-100 text-asperge-800"
-                  : "border-creme-400 text-brun-700 hover:border-brun-500 hover:text-brun-900"
+                  ? "border-bleu-700 bg-glace-100 text-bleu-800"
+                  : "border-givre-400 text-nuit-700 hover:border-nuit-500 hover:text-nuit-900"
               }`}
             >
               {preset.label}
@@ -146,8 +146,8 @@ export function FiltersBar({ filters, sources, hasSessionsWithoutSource }: Props
           aria-current={!filters.from && !filters.to ? "true" : undefined}
           className={`rounded-full border px-3 py-1 font-medium transition-colors ${
             !filters.from && !filters.to
-              ? "border-asperge-700 bg-sauge-100 text-asperge-800"
-              : "border-creme-400 text-brun-700 hover:border-brun-500 hover:text-brun-900"
+              ? "border-bleu-700 bg-glace-100 text-bleu-800"
+              : "border-givre-400 text-nuit-700 hover:border-nuit-500 hover:text-nuit-900"
           }`}
         >
           Toute la période

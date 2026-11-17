@@ -4,8 +4,7 @@ import Link from "next/link";
 import { DashboardCharts } from "@/components/admin/DashboardCharts";
 import { PrintButton } from "@/components/admin/PrintButton";
 import { StatTiles } from "@/components/admin/StatTiles";
-import { Asparagus } from "@/components/illustrations/Asparagus";
-import { Fig } from "@/components/illustrations/Fig";
+import { FrostStar, Snowflake } from "@/components/illustrations/Winter";
 import { site } from "@/data/site";
 import { formatDateTime, formatDayKey } from "@/lib/dates";
 import { NO_SOURCE, filtersToQuery, parseFilters, type DashboardFilters } from "@/lib/filters";
@@ -61,16 +60,16 @@ export default async function PrintableReportPage({ searchParams }: Props) {
       {/* Format de page pour l'impression et l'export PDF. */}
       <style>{`@page { size: A4 portrait; margin: 12mm; }`}</style>
 
-      <header className="sticky top-0 z-10 border-b border-creme-400 bg-creme-50 print:hidden">
+      <header className="sticky top-0 z-10 border-b border-givre-400 bg-givre-50 print:hidden">
         <div className="mx-auto flex max-w-[760px] flex-wrap items-center justify-between gap-3 px-4 py-3">
           <Link
             href={`/admin${filtersToQuery(filters)}`}
-            className="text-[0.9375rem] font-medium text-brun-700 underline decoration-brun-400 underline-offset-4 hover:text-figue-600"
+            className="text-[0.9375rem] font-medium text-nuit-700 underline decoration-nuit-400 underline-offset-4 hover:text-ciel-600"
           >
             ← Retour au tableau de bord
           </Link>
           <div className="flex items-center gap-3">
-            <p className="hidden text-sm text-brun-600 sm:block">
+            <p className="hidden text-sm text-nuit-600 sm:block">
               Format A4 · choisissez « Enregistrer au format PDF » pour un fichier.
             </p>
             <PrintButton />
@@ -80,24 +79,24 @@ export default async function PrintableReportPage({ searchParams }: Props) {
 
       {/* La feuille : 664 px de contenu, à l'écran comme à l'impression. */}
       <main className="mx-auto my-6 box-content w-[664px] bg-white px-6 py-8 shadow-xl print:my-0 print:p-0 print:shadow-none">
-        <header className="flex items-end justify-between gap-6 border-b-2 border-brun-900 pb-4">
+        <header className="flex items-end justify-between gap-6 border-b-2 border-nuit-900 pb-4">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-asperge-700">
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-bleu-700">
               Bilan de participation
             </p>
-            <h1 className="mt-1 font-serif text-3xl font-semibold leading-tight text-brun-900">
+            <h1 className="mt-1 font-serif text-3xl font-semibold leading-tight text-nuit-900">
               {typo(site.title)}
             </h1>
-            <p className="mt-1 font-serif italic text-figue-600">{typo(site.subtitle)}</p>
+            <p className="mt-1 font-serif italic text-ciel-600">{typo(site.subtitle)}</p>
           </div>
           <div className="flex shrink-0 items-end gap-2" aria-hidden="true">
-            <Asparagus className="h-16 w-auto" />
-            <Fig className="h-12 w-auto" />
+            <Snowflake className="h-14 w-auto" />
+            <FrostStar className="h-10 w-auto" />
           </div>
         </header>
 
-        <p className="mt-3 text-sm text-brun-700">
-          <strong className="font-semibold text-brun-900">{describeFilters(filters)}</strong>
+        <p className="mt-3 text-sm text-nuit-700">
+          <strong className="font-semibold text-nuit-900">{describeFilters(filters)}</strong>
           {data ? <> — données arrêtées au {formatDateTime(data.generatedAt)}</> : null}
         </p>
 
@@ -107,7 +106,7 @@ export default async function PrintableReportPage({ searchParams }: Props) {
             bord pour plus de détails.
           </p>
         ) : data.stats.totals.started === 0 ? (
-          <p className="mt-8 rounded-lg bg-creme-100 px-4 py-8 text-center text-brun-700">
+          <p className="mt-8 rounded-lg bg-givre-100 px-4 py-8 text-center text-nuit-700">
             Aucune participation sur cette sélection.
           </p>
         ) : (
@@ -121,19 +120,19 @@ export default async function PrintableReportPage({ searchParams }: Props) {
               printFooter={
                 data.feedback.length > 0 ? (
                   <section className="mt-5">
-                    <h2 className="mb-3 break-after-avoid font-serif text-lg font-semibold text-brun-900">
+                    <h2 className="mb-3 break-after-avoid font-serif text-lg font-semibold text-nuit-900">
                       Quelques mots de participants
                     </h2>
                     <ul className="grid grid-cols-2 gap-3">
                       {data.feedback.slice(0, 4).map((entry) => (
                         <li
                           key={entry.sessionId}
-                          className="break-inside-avoid rounded-lg border border-creme-300 px-4 py-3 text-sm"
+                          className="break-inside-avoid rounded-lg border border-givre-300 px-4 py-3 text-sm"
                         >
-                          <p className="line-clamp-5 font-serif italic leading-snug text-brun-900">
+                          <p className="line-clamp-5 font-serif italic leading-snug text-nuit-900">
                             « {typo(entry.comment)} »
                           </p>
-                          <p className="mt-1.5 text-xs text-brun-600">
+                          <p className="mt-1.5 text-xs text-nuit-600">
                             {entry.firstName ?? "Anonyme"}
                             {entry.district ? ` · ${typo(entry.district)}` : ""}
                             {entry.rating !== null ? ` · ${entry.rating}/5` : ""}
@@ -142,7 +141,7 @@ export default async function PrintableReportPage({ searchParams }: Props) {
                       ))}
                     </ul>
                     {data.feedback.length > 4 ? (
-                      <p className="mt-2 text-xs text-brun-600">
+                      <p className="mt-2 text-xs text-nuit-600">
                         Les {data.feedback.length} commentaires sont disponibles dans
                         l’espace organisateur et dans l’export CSV des avis.
                       </p>
@@ -154,7 +153,7 @@ export default async function PrintableReportPage({ searchParams }: Props) {
           </>
         )}
 
-        <footer className="mt-6 break-inside-avoid border-t border-creme-300 pt-3 text-xs text-brun-600">
+        <footer className="mt-6 break-inside-avoid border-t border-givre-300 pt-3 text-xs text-nuit-600">
           {typo(site.title)} — bilan généré depuis l’espace organisateur. Données
           anonymes, utilisées uniquement pour les statistiques du jeu.
         </footer>

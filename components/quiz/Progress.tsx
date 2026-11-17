@@ -17,9 +17,9 @@ export function Progress({ current, total }: Props) {
     >
       <div className="flex items-baseline justify-between">
         <p className="surtitre">Devinette</p>
-        <p className="font-serif text-lg font-semibold text-brun-900" aria-hidden="true">
+        <p className="font-serif text-lg font-semibold text-nuit-900" aria-hidden="true">
           {current}
-          <span className="text-brun-600"> / {total}</span>
+          <span className="text-nuit-600"> / {total}</span>
         </p>
       </div>
       <div className="mt-2 flex gap-1.5" aria-hidden="true">
@@ -27,10 +27,10 @@ export function Progress({ current, total }: Props) {
           const step = index + 1;
           const state =
             step < current
-              ? "bg-asperge-600"
+              ? "bg-bleu-600"
               : step === current
-                ? "bg-figue-500"
-                : "bg-creme-300";
+                ? "bg-ciel-500"
+                : "bg-givre-300";
           return (
             <span
               key={step}

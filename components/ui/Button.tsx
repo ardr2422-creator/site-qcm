@@ -11,11 +11,11 @@ const base =
 
 const variants: Record<Variant, string> = {
   primary:
-    "bg-asperge-700 text-white shadow-sm hover:bg-asperge-800 active:bg-asperge-900",
+    "bg-bleu-700 text-white shadow-sm hover:bg-bleu-800 active:bg-bleu-900",
   secondary:
-    "border-2 border-asperge-700 bg-creme-50 text-asperge-800 hover:bg-sauge-100 active:bg-sauge-200",
+    "border-2 border-bleu-700 bg-givre-50 text-bleu-800 hover:bg-glace-100 active:bg-glace-200",
   quiet:
-    "text-figue-600 underline decoration-figue-200 decoration-2 underline-offset-4 hover:text-figue-700 hover:decoration-figue-500",
+    "text-ciel-600 underline decoration-ciel-200 decoration-2 underline-offset-4 hover:text-ciel-700 hover:decoration-ciel-500",
 };
 
 const sizes: Record<Size, string> = {

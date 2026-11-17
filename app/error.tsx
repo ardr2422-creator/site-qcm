@@ -23,10 +23,10 @@ export default function GlobalError({ error }: Props) {
     <main className="mx-auto flex min-h-dvh w-full max-w-xl flex-col justify-center px-4 py-10">
       <div className="carte px-6 py-10 text-center sm:px-10" role="alert">
         <p className="surtitre">Petit contretemps</p>
-        <h1 className="mt-2 font-serif text-3xl font-semibold leading-tight text-brun-900">
+        <h1 className="mt-2 font-serif text-3xl font-semibold leading-tight text-nuit-900">
           Quelque chose s’est mal passé
         </h1>
-        <p className="mx-auto mt-3 max-w-sm text-lg text-brun-700">
+        <p className="mx-auto mt-3 max-w-sm text-lg text-nuit-700">
           Rien n’est perdu : vos réponses sont gardées sur cet appareil.
           Réessayez dans un instant.
         </p>

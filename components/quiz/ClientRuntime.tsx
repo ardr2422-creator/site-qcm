@@ -27,9 +27,9 @@ export function ClientRuntime() {
     <div className="mx-auto w-full max-w-xl px-4 pb-3 print:hidden">
       <p
         role="status"
-        className="animate-fade-in rounded-2xl border border-creme-400 bg-creme-50 px-4 py-3 text-center text-[0.9375rem] text-brun-700"
+        className="animate-fade-in rounded-2xl border border-givre-400 bg-givre-50 px-4 py-3 text-center text-[0.9375rem] text-nuit-700"
       >
-        <strong className="font-semibold text-brun-900">Connexion instable.</strong>{" "}
+        <strong className="font-semibold text-nuit-900">Connexion instable.</strong>{" "}
         Pas d’inquiétude : vos réponses sont gardées sur cet appareil et seront
         envoyées automatiquement dès que le réseau reviendra.
       </p>

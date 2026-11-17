@@ -1,10 +1,13 @@
 /**
  * Textes et réglages généraux du jeu.
  * Tout ce qui est ici peut être modifié sans toucher au reste du code.
+ *
+ * Règle d'or : aucun texte affiché AVANT une question ne doit donner
+ * d'indice sur les réponses (pas de pont, de Seine, de butte, de fruit…).
  */
 
 export const site = {
-  title: "Les Secrets Gourmands d'Argenteuil",
+  title: "Le Royaume des Glaces d'Argenteuil",
   eyebrow: "Jeu de devinettes",
   tagline: "À vous de retrouver les trésors de notre territoire",
   /** Sous-titre complet, utilisé dans les métadonnées et les supports imprimés. */
@@ -16,7 +19,7 @@ export const site = {
   closing:
     "Un petit voyage dans l'histoire, les paysages et les saveurs d'Argenteuil… Bonne dégustation et bonne enquête !",
   description:
-    "Cinq devinettes pour retrouver les trésors d'Argenteuil : son pont, ses bords de Seine, sa butte, ses vergers et ses saveurs. Participation anonyme, 2 minutes.",
+    "Cinq devinettes pour retrouver les trésors d'Argenteuil. Participation anonyme, 2 minutes.",
   qrCallToAction: "Scannez-moi pour jouer !",
 } as const;
 

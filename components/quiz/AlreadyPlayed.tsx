@@ -32,12 +32,12 @@ export function AlreadyPlayed({ done, lastGame }: Props) {
   return (
     <div className="flex flex-col items-center gap-5 text-center">
       <div>
-        <p className="font-serif text-2xl font-semibold text-brun-900">
+        <p className="font-serif text-2xl font-semibold text-nuit-900">
           Vous avez déjà participé, merci !
         </p>
-        <p className="mt-2 text-lg text-brun-700">
+        <p className="mt-2 text-lg text-nuit-700">
           Votre score :{" "}
-          <strong className="font-serif text-2xl font-semibold text-figue-600">
+          <strong className="font-serif text-2xl font-semibold text-ciel-600">
             {done.score}/{done.total}
           </strong>
         </p>

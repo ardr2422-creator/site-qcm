@@ -41,11 +41,11 @@ function SectionTitle({
   return (
     <div className={`mb-3 break-after-avoid ${compact ? "mt-5" : "mt-9"}`}>
       <h2
-        className={`font-serif font-semibold text-brun-900 ${compact ? "text-lg" : "text-xl"}`}
+        className={`font-serif font-semibold text-nuit-900 ${compact ? "text-lg" : "text-xl"}`}
       >
         {children}
       </h2>
-      {hint ? <p className="mt-0.5 text-sm text-brun-600">{hint}</p> : null}
+      {hint ? <p className="mt-0.5 text-sm text-nuit-600">{hint}</p> : null}
     </div>
   );
 }
@@ -140,7 +140,7 @@ export function DashboardCharts({ stats, print = false, printFooter }: Props) {
             <span className="line-clamp-2" title={typo(question.text)}>
               {typo(question.text)}
             </span>
-            <span className="mt-1 block font-medium text-brun-700">
+            <span className="mt-1 block font-medium text-nuit-700">
               {question.correctRate === null
                 ? "Aucune réponse pour l’instant"
                 : `${formatPercent(question.correctRate)} de bonnes réponses · ${answersLabel(question.answered)}`}
@@ -319,8 +319,8 @@ export function DashboardCharts({ stats, print = false, printFooter }: Props) {
   return (
     <div>
       <div className="mb-3">
-        <h2 className="font-serif text-xl font-semibold text-brun-900">Les devinettes</h2>
-        <p className="mt-0.5 text-sm text-brun-600">
+        <h2 className="font-serif text-xl font-semibold text-nuit-900">Les devinettes</h2>
+        <p className="mt-0.5 text-sm text-nuit-600">
           Ce que les participants connaissent — ou pas — de leur ville.
         </p>
       </div>

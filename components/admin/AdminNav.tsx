@@ -25,8 +25,8 @@ export function AdminNav() {
             aria-current={active ? "page" : undefined}
             className={`rounded-full px-4 py-2 text-[0.9375rem] font-semibold transition-colors ${
               active
-                ? "bg-asperge-700 text-white"
-                : "text-brun-700 hover:bg-creme-200 hover:text-brun-900"
+                ? "bg-bleu-700 text-white"
+                : "text-nuit-700 hover:bg-givre-200 hover:text-nuit-900"
             }`}
           >
             {link.label}

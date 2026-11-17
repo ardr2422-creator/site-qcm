@@ -18,14 +18,14 @@ export default async function AdminPanelLayout({
   await requireAdmin();
 
   return (
-    <div className="min-h-dvh bg-creme-100 text-base">
-      <header className="border-b border-creme-300 bg-creme-50">
+    <div className="min-h-dvh bg-givre-100 text-base">
+      <header className="border-b border-givre-300 bg-givre-50">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-6 gap-y-3 px-4 py-3 sm:px-6">
           <Link href="/admin" className="mr-auto min-w-0">
-            <span className="block text-xs font-semibold uppercase tracking-[0.14em] text-asperge-700">
+            <span className="block text-xs font-semibold uppercase tracking-[0.14em] text-bleu-700">
               Espace organisateur
             </span>
-            <span className="block truncate font-serif text-lg font-semibold leading-tight text-brun-900">
+            <span className="block truncate font-serif text-lg font-semibold leading-tight text-nuit-900">
               {typo(site.title)}
             </span>
           </Link>
@@ -33,7 +33,7 @@ export default async function AdminPanelLayout({
           <form action={logoutAction}>
             <button
               type="submit"
-              className="rounded-full border border-brun-500 px-4 py-2 text-[0.9375rem] font-semibold text-brun-700 transition-colors hover:bg-creme-200 hover:text-brun-900"
+              className="rounded-full border border-nuit-500 px-4 py-2 text-[0.9375rem] font-semibold text-nuit-700 transition-colors hover:bg-givre-200 hover:text-nuit-900"
             >
               Déconnexion
             </button>

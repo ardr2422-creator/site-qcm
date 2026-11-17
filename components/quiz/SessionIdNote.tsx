@@ -11,9 +11,9 @@ export function SessionIdNote() {
   if (!game) return null;
 
   return (
-    <p className="mt-3 rounded-xl border border-creme-300 bg-creme-100 px-4 py-3 text-[0.9375rem]">
+    <p className="mt-3 rounded-xl border border-givre-300 bg-givre-100 px-4 py-3 text-[0.9375rem]">
       Identifiant anonyme de votre participation sur cet appareil :{" "}
-      <code className="break-all font-mono text-sm text-brun-900">
+      <code className="break-all font-mono text-sm text-nuit-900">
         {game.sessionId}
       </code>
     </p>

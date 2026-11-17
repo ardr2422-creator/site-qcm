@@ -30,7 +30,7 @@ function Stars({ rating }: { rating: number }) {
           width="16"
           height="16"
           aria-hidden="true"
-          className={value <= rating ? "fill-or-500" : "fill-creme-300"}
+          className={value <= rating ? "fill-or-500" : "fill-givre-300"}
         >
           <path d="M12 2.8l2.83 5.74 6.33.92-4.58 4.46 1.08 6.3L12 17.25l-5.66 2.97 1.08-6.3-4.58-4.46 6.33-.92z" />
         </svg>
@@ -60,14 +60,14 @@ export function FeedbackList({ entries }: { entries: FeedbackEntry[] }) {
   return (
     <section
       aria-labelledby="titre-avis"
-      className="rounded-2xl border border-creme-300 bg-[#fffdf8] p-5"
+      className="rounded-2xl border border-givre-300 bg-white p-5"
     >
       <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
         <div>
-          <h3 id="titre-avis" className="text-base font-semibold text-brun-900">
+          <h3 id="titre-avis" className="text-base font-semibold text-nuit-900">
             Commentaires des participants
           </h3>
-          <p className="mt-0.5 text-sm text-brun-600" role="status">
+          <p className="mt-0.5 text-sm text-nuit-600" role="status">
             {query.trim()
               ? `${formatNumber(filtered.length)} ${plural(filtered.length, "résultat", "résultats")} sur ${formatNumber(entries.length)}`
               : `${formatNumber(entries.length)} ${plural(entries.length, "commentaire", "commentaires")}, du plus récent au plus ancien`}
@@ -86,30 +86,30 @@ export function FeedbackList({ entries }: { entries: FeedbackEntry[] }) {
               setVisible(PAGE_SIZE);
             }}
             placeholder="Rechercher un mot, un prénom, un quartier…"
-            className="block h-11 w-full rounded-lg border border-brun-500 bg-white px-3 text-brun-900 placeholder:text-brun-500 focus:border-asperge-700 focus:outline-none focus-visible:outline-3 focus-visible:outline-offset-1 focus-visible:outline-figue-500"
+            className="block h-11 w-full rounded-lg border border-nuit-500 bg-white px-3 text-nuit-900 placeholder:text-nuit-500 focus:border-bleu-700 focus:outline-none focus-visible:outline-3 focus-visible:outline-offset-1 focus-visible:outline-ciel-500"
           />
         </div>
       </div>
 
       {entries.length === 0 ? (
-        <p className="mt-5 rounded-xl bg-creme-100 px-4 py-6 text-center text-brun-700">
+        <p className="mt-5 rounded-xl bg-givre-100 px-4 py-6 text-center text-nuit-700">
           Aucun commentaire pour l’instant.
         </p>
       ) : filtered.length === 0 ? (
-        <p className="mt-5 rounded-xl bg-creme-100 px-4 py-6 text-center text-brun-700">
+        <p className="mt-5 rounded-xl bg-givre-100 px-4 py-6 text-center text-nuit-700">
           Aucun commentaire ne correspond à « {query.trim()} ».
         </p>
       ) : (
-        <ul className="mt-4 divide-y divide-creme-300">
+        <ul className="mt-4 divide-y divide-givre-300">
           {shown.map((entry) => (
             <li key={entry.sessionId} className="py-4 first:pt-1 last:pb-1">
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-brun-600">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-nuit-600">
                 {entry.rating !== null ? (
                   <Stars rating={entry.rating} />
                 ) : (
                   <span className="italic">Sans note</span>
                 )}
-                <span className="font-semibold text-brun-900">
+                <span className="font-semibold text-nuit-900">
                   {entry.firstName ?? "Anonyme"}
                 </span>
                 {entry.district ? <span>· {typo(entry.district)}</span> : null}
@@ -119,7 +119,7 @@ export function FeedbackList({ entries }: { entries: FeedbackEntry[] }) {
                   {formatDateTime(entry.createdAt)}
                 </time>
               </div>
-              <p className="mt-1.5 whitespace-pre-line break-words text-brun-900">
+              <p className="mt-1.5 whitespace-pre-line break-words text-nuit-900">
                 {typo(entry.comment)}
               </p>
             </li>
@@ -132,7 +132,7 @@ export function FeedbackList({ entries }: { entries: FeedbackEntry[] }) {
           <button
             type="button"
             onClick={() => setVisible((count) => count + PAGE_SIZE)}
-            className="rounded-full border border-brun-500 px-5 py-2 text-[0.9375rem] font-semibold text-brun-800 transition-colors hover:bg-creme-200"
+            className="rounded-full border border-nuit-500 px-5 py-2 text-[0.9375rem] font-semibold text-nuit-800 transition-colors hover:bg-givre-200"
           >
             Afficher {Math.min(PAGE_SIZE, filtered.length - visible)} commentaires de plus
           </button>

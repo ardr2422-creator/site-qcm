@@ -23,7 +23,7 @@ function Star({ filled }: { filled: boolean }) {
       aria-hidden="true"
       focusable="false"
       className={`transition-colors duration-150 ${
-        filled ? "fill-or-500 stroke-or-600" : "fill-creme-50 stroke-brun-500"
+        filled ? "fill-or-500 stroke-or-600" : "fill-givre-50 stroke-nuit-500"
       }`}
       strokeWidth="1.6"
       strokeLinejoin="round"
@@ -54,7 +54,7 @@ export function FeedbackForm({ alreadySent }: Props) {
         <p className="font-serif text-2xl font-semibold text-succes-800">
           Merci pour votre avis !
         </p>
-        <p className="mt-1 text-brun-700">
+        <p className="mt-1 text-nuit-700">
           Il nous aidera à imaginer la suite.
         </p>
       </div>
@@ -78,9 +78,9 @@ export function FeedbackForm({ alreadySent }: Props) {
   return (
     <form onSubmit={submit} noValidate className="flex flex-col gap-6">
       <fieldset>
-        <legend className="text-lg font-semibold text-brun-900">
+        <legend className="text-lg font-semibold text-nuit-900">
           Avez-vous aimé ce jeu ?{" "}
-          <span className="font-normal text-brun-600">(facultatif)</span>
+          <span className="font-normal text-nuit-600">(facultatif)</span>
         </legend>
         <div
           className="mt-2 flex justify-center gap-1 sm:justify-start"
@@ -91,7 +91,7 @@ export function FeedbackForm({ alreadySent }: Props) {
             return (
               <label
                 key={value}
-                className="cursor-pointer rounded-full p-1.5 has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-offset-0 has-[:focus-visible]:outline-figue-500"
+                className="cursor-pointer rounded-full p-1.5 has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-offset-0 has-[:focus-visible]:outline-ciel-500"
                 onPointerEnter={(event) => {
                   if (event.pointerType === "mouse") setHovered(value);
                 }}
@@ -116,9 +116,9 @@ export function FeedbackForm({ alreadySent }: Props) {
       </fieldset>
 
       <div>
-        <label htmlFor="commentaire" className="text-lg font-semibold text-brun-900">
+        <label htmlFor="commentaire" className="text-lg font-semibold text-nuit-900">
           Un mot, une idée, un souvenir d’Argenteuil à partager ?{" "}
-          <span className="font-normal text-brun-600">(facultatif)</span>
+          <span className="font-normal text-nuit-600">(facultatif)</span>
         </label>
         <textarea
           id="commentaire"
@@ -131,11 +131,11 @@ export function FeedbackForm({ alreadySent }: Props) {
             setError(null);
           }}
           aria-describedby="commentaire-compteur"
-          className="mt-2 block w-full resize-y rounded-xl border-2 border-brun-500 bg-white px-4 py-3 text-lg text-brun-900 focus:border-asperge-700 focus:outline-none focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-figue-500"
+          className="mt-2 block w-full resize-y rounded-xl border-2 border-nuit-500 bg-white px-4 py-3 text-lg text-nuit-900 focus:border-bleu-700 focus:outline-none focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-ciel-500"
         />
         <p
           id="commentaire-compteur"
-          className="mt-1 text-right text-sm tabular-nums text-brun-600"
+          className="mt-1 text-right text-sm tabular-nums text-nuit-600"
         >
           {length} / {COMMENT_MAX} caractères
         </p>

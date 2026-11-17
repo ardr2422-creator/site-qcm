@@ -8,7 +8,7 @@ export function PrintButton({ label = "Imprimer / Enregistrer en PDF" }: Props) 
     <button
       type="button"
       onClick={() => window.print()}
-      className="inline-flex h-11 shrink-0 items-center whitespace-nowrap rounded-full bg-asperge-700 px-6 font-semibold text-white transition-colors hover:bg-asperge-800"
+      className="inline-flex h-11 shrink-0 items-center whitespace-nowrap rounded-full bg-bleu-700 px-6 font-semibold text-white transition-colors hover:bg-bleu-800"
     >
       {label}
     </button>

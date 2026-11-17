@@ -11,10 +11,10 @@ export default async function QrCodePage() {
 
   return (
     <>
-      <h1 className="font-serif text-3xl font-semibold leading-tight text-brun-900">
+      <h1 className="font-serif text-3xl font-semibold leading-tight text-nuit-900">
         QR codes
       </h1>
-      <p className="mt-1 max-w-2xl text-brun-700">
+      <p className="mt-1 max-w-2xl text-nuit-700">
         Générez un QR code par support (table, affiche, menu…) : chacun mène au
         jeu, et les statistiques indiquent ensuite lequel a été scanné.
       </p>

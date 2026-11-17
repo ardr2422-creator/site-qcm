@@ -43,7 +43,8 @@ export const questions: QuizQuestion[] = [
     id: 1,
     text: "Je relie deux rives au-dessus de la Seine. Un peintre impressionniste m'a immortalisé à plusieurs reprises en 1874. Qui suis-je ?",
     options: [
-      { id: "pont-argenteuil", label: "Le pont d'Argenteuil", correct: true },
+      // Titre d'un tableau de Monet (1874) : « Le Pont routier, Argenteuil ».
+      { id: "pont-argenteuil", label: "Le pont routier", correct: true },
       { id: "viaduc-a15", label: "Le viaduc de l'A15" },
       { id: "chemin-halage", label: "Le chemin de halage" },
       { id: "plataneraie", label: "La Plataneraie" },

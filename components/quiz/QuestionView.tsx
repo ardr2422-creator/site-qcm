@@ -34,17 +34,17 @@ const LETTERS = ["A", "B", "C", "D", "E", "F"];
 
 const optionClasses: Record<OptionState, string> = {
   idle:
-    "border-brun-500 bg-creme-50 text-brun-900 hover:border-asperge-700 hover:bg-sauge-50 active:bg-sauge-100",
+    "border-nuit-500 bg-givre-50 text-nuit-900 hover:border-bleu-700 hover:bg-glace-50 active:bg-glace-100",
   correct: "border-succes-600 bg-succes-100 text-succes-800",
   wrong: "border-erreur-600 bg-erreur-100 text-erreur-800",
-  muted: "border-creme-300 bg-creme-50 text-brun-600",
+  muted: "border-givre-300 bg-givre-50 text-nuit-600",
 };
 
 const badgeClasses: Record<OptionState, string> = {
-  idle: "border-brun-500 bg-white text-brun-700",
+  idle: "border-nuit-500 bg-white text-nuit-700",
   correct: "border-succes-600 bg-succes-600 text-white",
   wrong: "border-erreur-600 bg-erreur-600 text-white",
-  muted: "border-creme-400 bg-creme-100 text-brun-600",
+  muted: "border-givre-400 bg-givre-100 text-nuit-600",
 };
 
 function CheckIcon() {
@@ -112,7 +112,7 @@ export function QuestionView({
         id="enonce"
         ref={headingRef}
         tabIndex={-1}
-        className="mt-6 text-pretty font-serif text-[1.5rem] font-medium leading-snug text-brun-900 outline-none sm:text-[1.75rem]"
+        className="mt-6 text-pretty font-serif text-[1.5rem] font-medium leading-snug text-nuit-900 outline-none sm:text-[1.75rem]"
       >
         {typo(question.text)}
       </h1>
@@ -177,20 +177,20 @@ export function QuestionView({
             className={`rounded-2xl border-l-4 px-5 py-4 ${
               answer.correct
                 ? "border-succes-600 bg-succes-50"
-                : "border-figue-500 bg-figue-50"
+                : "border-ciel-500 bg-ciel-50"
             }`}
           >
-            <p className="font-serif text-xl font-semibold text-brun-900">
+            <p className="font-serif text-xl font-semibold text-nuit-900">
               {answer.correct ? "Bonne réponse !" : "Pas tout à fait…"}
             </p>
             {!answer.correct ? (
-              <p className="mt-1 text-brun-800">
+              <p className="mt-1 text-nuit-800">
                 Il s’agissait de :{" "}
                 <strong>{typo(correctOption.label)}</strong>.
               </p>
             ) : null}
             <p className="surtitre mt-4">Le saviez-vous ?</p>
-            <p className="mt-1 text-brun-800">{typo(question.anecdote)}</p>
+            <p className="mt-1 text-nuit-800">{typo(question.anecdote)}</p>
           </div>
 
           <Button ref={nextRef} onClick={onNext} className="mt-5 w-full">

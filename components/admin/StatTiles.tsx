@@ -13,18 +13,18 @@ type TileProps = {
 function Tile({ label, value, unit, hint, compact, className = "" }: TileProps) {
   return (
     <div
-      className={`break-inside-avoid border border-creme-300 bg-[#fffdf8] ${
+      className={`break-inside-avoid border border-givre-300 bg-white ${
         compact ? "rounded-lg px-3 py-3" : "rounded-2xl px-5 py-4"
       } ${className}`}
     >
       <dt
-        className={`font-medium leading-snug text-brun-600 ${compact ? "text-xs" : "text-sm"}`}
+        className={`font-medium leading-snug text-nuit-600 ${compact ? "text-xs" : "text-sm"}`}
       >
         {label}
       </dt>
       <dd className="mt-1.5">
         <span
-          className={`font-semibold leading-none tracking-tight text-brun-900 ${
+          className={`font-semibold leading-none tracking-tight text-nuit-900 ${
             compact ? "text-2xl" : "text-[2rem]"
           }`}
         >
@@ -32,14 +32,14 @@ function Tile({ label, value, unit, hint, compact, className = "" }: TileProps) 
         </span>
         {unit ? (
           <span
-            className={`ml-1 font-medium text-brun-600 ${compact ? "text-sm" : "text-lg"}`}
+            className={`ml-1 font-medium text-nuit-600 ${compact ? "text-sm" : "text-lg"}`}
           >
             {unit}
           </span>
         ) : null}
         {hint ? (
           <span
-            className={`mt-1.5 block leading-snug text-brun-600 ${compact ? "text-xs" : "text-sm"}`}
+            className={`mt-1.5 block leading-snug text-nuit-600 ${compact ? "text-xs" : "text-sm"}`}
           >
             {hint}
           </span>

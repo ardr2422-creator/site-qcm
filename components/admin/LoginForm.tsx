@@ -14,7 +14,7 @@ export function LoginForm({ next }: { next: string }) {
     <form action={action} className="mt-6 flex flex-col gap-5">
       <input type="hidden" name="next" value={next} />
       <div>
-        <label htmlFor="password" className="font-semibold text-brun-900">
+        <label htmlFor="password" className="font-semibold text-nuit-900">
           Mot de passe
         </label>
         <input
@@ -26,7 +26,7 @@ export function LoginForm({ next }: { next: string }) {
           autoComplete="current-password"
           aria-invalid={state.error ? true : undefined}
           aria-describedby={state.error ? "erreur-connexion" : undefined}
-          className="mt-2 block w-full rounded-xl border-2 border-brun-500 bg-white px-4 py-3 text-brun-900 focus:border-asperge-700 focus:outline-none focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-figue-500"
+          className="mt-2 block w-full rounded-xl border-2 border-nuit-500 bg-white px-4 py-3 text-nuit-900 focus:border-bleu-700 focus:outline-none focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-ciel-500"
         />
       </div>
 

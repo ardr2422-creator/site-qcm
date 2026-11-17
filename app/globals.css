@@ -1,42 +1,48 @@
 @import "tailwindcss";
 
-/* ───────────────────────── Palette « terroir chic » ─────────────────────
-   Crème (papier, nappe), vert sauge / asperge, violet figue, brun foncé.
-   Tous les couples texte/fond utilisés respectent WCAG AA.               */
+/* ───────────────────── Palette « Royaume des Glaces » ───────────────────
+   Bleu ciel du logo (#38b0f8), bleu profond, blanc givré et bleu nuit.
+   Le bleu ciel du logo, trop clair pour du texte, ne sert qu'aux décors ;
+   tous les couples texte/fond utilisés respectent WCAG AA.               */
 @theme {
-  --color-creme-50: #fdfaf3;
-  --color-creme-100: #f8f1e3;
-  --color-creme-200: #f0e6d2;
-  --color-creme-300: #e3d6bc;
-  --color-creme-400: #cbbb9c;
+  /* Fonds et surfaces (blanc givré) */
+  --color-givre-50: #f8fbfe;
+  --color-givre-100: #eef5fb;
+  --color-givre-200: #e2ecf6;
+  --color-givre-300: #d0dfee;
+  --color-givre-400: #b4c8de;
 
-  --color-sauge-50: #f1f4ec;
-  --color-sauge-100: #e3eada;
-  --color-sauge-200: #cdd9bd;
-  --color-sauge-300: #b0c29b;
-  --color-sauge-400: #93a97c;
-  --color-sauge-500: #778f60;
+  /* Teintes glacées claires, autour du bleu ciel du logo */
+  --color-glace-50: #eef8ff;
+  --color-glace-100: #ddf1fe;
+  --color-glace-200: #bde5fd;
+  --color-glace-300: #8fd2fb;
+  --color-glace-400: #5cc0f9;
+  --color-glace-500: #38b0f8;
 
-  --color-asperge-500: #6b8a3e;
-  --color-asperge-600: #5a7a32;
-  --color-asperge-700: #44602a;
-  --color-asperge-800: #354b21;
-  --color-asperge-900: #283a19;
+  /* Bleu profond : boutons, éléments principaux */
+  --color-bleu-500: #2b6cc4;
+  --color-bleu-600: #2259ad;
+  --color-bleu-700: #1c4a94;
+  --color-bleu-800: #163b78;
+  --color-bleu-900: #102c5b;
 
-  --color-figue-50: #f8eef4;
-  --color-figue-100: #f0dce8;
-  --color-figue-200: #dfb9d0;
-  --color-figue-400: #a85a90;
-  --color-figue-500: #8a3f73;
-  --color-figue-600: #6f2c5b;
-  --color-figue-700: #5a2249;
+  /* Bleu vif lisible : accents, liens, focus */
+  --color-ciel-50: #ebf7fe;
+  --color-ciel-100: #d3eefd;
+  --color-ciel-200: #a6dcfb;
+  --color-ciel-400: #38b0f8;
+  --color-ciel-500: #0e8bd6;
+  --color-ciel-600: #0a6eae;
+  --color-ciel-700: #08588c;
 
-  --color-brun-400: #a8957f;
-  --color-brun-500: #8a7663;
-  --color-brun-600: #655243;
-  --color-brun-700: #4f3b2e;
-  --color-brun-800: #3d2b20;
-  --color-brun-900: #2e1f16;
+  /* Bleu nuit : texte */
+  --color-nuit-400: #8fa1b8;
+  --color-nuit-500: #64768f;
+  --color-nuit-600: #475a73;
+  --color-nuit-700: #31435c;
+  --color-nuit-800: #1f2f47;
+  --color-nuit-900: #122038;
 
   --color-succes-50: #eef5e4;
   --color-succes-100: #e4efd6;
@@ -91,8 +97,8 @@
   }
 
   body {
-    background-color: var(--color-creme-100);
-    color: var(--color-brun-900);
+    background-color: var(--color-givre-100);
+    color: var(--color-nuit-900);
     font-family: var(--font-sans);
     font-size: 1.0625rem;
     line-height: 1.6;
@@ -102,14 +108,14 @@
 
   /* Focus toujours visible au clavier, discret à la souris et au doigt. */
   :focus-visible {
-    outline: 3px solid var(--color-figue-500);
+    outline: 3px solid var(--color-ciel-500);
     outline-offset: 3px;
     border-radius: 0.25rem;
   }
 
   ::selection {
-    background-color: var(--color-figue-100);
-    color: var(--color-brun-900);
+    background-color: var(--color-ciel-100);
+    color: var(--color-nuit-900);
   }
 
   /* Évite le zoom automatique d'iOS sur les champs de formulaire. */
@@ -121,38 +127,33 @@
 }
 
 @layer components {
-  /* Bandeau « nappe vichy », clin d'œil aux tables de restaurant. */
-  .nappe {
-    background-color: var(--color-creme-50);
-    background-image:
-      linear-gradient(
-        90deg,
-        color-mix(in srgb, var(--color-sauge-400) 55%, transparent) 50%,
-        transparent 50%
-      ),
-      linear-gradient(
-        color-mix(in srgb, var(--color-sauge-400) 55%, transparent) 50%,
-        transparent 50%
-      );
-    background-size: 12px 12px;
+  /* Bandeau de givre : dégradé du bleu profond au bleu ciel du logo. */
+  .bandeau-givre {
+    background-color: var(--color-bleu-700);
+    background-image: linear-gradient(
+      90deg,
+      var(--color-bleu-700),
+      var(--color-glace-500) 50%,
+      var(--color-bleu-700)
+    );
   }
 
-  /* Carte façon menu : papier crème et double filet. */
+  /* Carte : blanc givré et double filet. */
   .carte {
     position: relative;
-    background-color: var(--color-creme-50);
-    border: 1px solid var(--color-creme-400);
+    background-color: var(--color-givre-50);
+    border: 1px solid var(--color-givre-400);
     border-radius: 1.25rem;
     box-shadow:
       0 1px 0 rgb(255 255 255 / 0.7) inset,
-      0 18px 40px -24px rgb(46 31 22 / 0.35);
+      0 18px 40px -24px rgb(18 32 56 / 0.35);
   }
 
   .carte::before {
     content: "";
     position: absolute;
     inset: 6px;
-    border: 1px solid var(--color-creme-300);
+    border: 1px solid var(--color-givre-300);
     border-radius: 0.95rem;
     pointer-events: none;
   }
@@ -163,7 +164,7 @@
     font-weight: 600;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--color-asperge-700);
+    color: var(--color-bleu-700);
   }
 }
 

@@ -18,7 +18,7 @@ type Props = {
 };
 
 const actionClasses =
-  "inline-flex h-11 items-center gap-2 rounded-full border border-brun-500 bg-[#fffdf8] px-4 text-[0.9375rem] font-semibold text-brun-800 transition-colors hover:bg-creme-200";
+  "inline-flex h-11 items-center gap-2 rounded-full border border-nuit-500 bg-white px-4 text-[0.9375rem] font-semibold text-nuit-800 transition-colors hover:bg-givre-200";
 
 function DownloadIcon() {
   return (
@@ -43,7 +43,7 @@ function LoadError({ error }: { error: unknown }) {
   return (
     <div
       role="alert"
-      className="mt-6 rounded-2xl border border-erreur-600 bg-erreur-50 px-5 py-5 text-brun-900"
+      className="mt-6 rounded-2xl border border-erreur-600 bg-erreur-50 px-5 py-5 text-nuit-900"
     >
       <h2 className="font-serif text-xl font-semibold text-erreur-800">
         {configProblems
@@ -58,7 +58,7 @@ function LoadError({ error }: { error: unknown }) {
               <li key={problem.message}>{problem.message}</li>
             ))}
           </ul>
-          <p className="mt-3 text-[0.9375rem] text-brun-700">
+          <p className="mt-3 text-[0.9375rem] text-nuit-700">
             Ces réglages se trouvent sur Vercel : projet → <strong>Settings</strong> →{" "}
             <strong>Environment Variables</strong>. Après une modification,
             relancez un déploiement (<strong>Deployments</strong> → <strong>…</strong> →{" "}
@@ -72,7 +72,7 @@ function LoadError({ error }: { error: unknown }) {
               "Vérifiez que le fichier supabase/schema.sql a bien été exécuté dans Supabase et que les réglages sont corrects, puis rechargez la page."}
           </p>
           {error instanceof Error ? (
-            <p className="mt-2 text-sm text-brun-700">Détail technique : {error.message}</p>
+            <p className="mt-2 text-sm text-nuit-700">Détail technique : {error.message}</p>
           ) : null}
         </>
       )}
@@ -98,10 +98,10 @@ export default async function DashboardPage({ searchParams }: Props) {
     <>
       <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-4">
         <div>
-          <h1 className="font-serif text-3xl font-semibold leading-tight text-brun-900">
+          <h1 className="font-serif text-3xl font-semibold leading-tight text-nuit-900">
             Tableau de bord
           </h1>
-          <p className="mt-1 text-brun-700">
+          <p className="mt-1 text-nuit-700">
             Participation, connaissances et avis, en temps réel.
           </p>
         </div>
@@ -141,13 +141,13 @@ export default async function DashboardPage({ searchParams }: Props) {
           </div>
 
           {data.stats.totals.started === 0 ? (
-            <div className="mt-6 rounded-2xl border border-creme-300 bg-[#fffdf8] px-6 py-12 text-center">
-              <p className="font-serif text-2xl font-semibold text-brun-900">
+            <div className="mt-6 rounded-2xl border border-givre-300 bg-white px-6 py-12 text-center">
+              <p className="font-serif text-2xl font-semibold text-nuit-900">
                 {hasActiveFilters(filters)
                   ? "Aucune participation pour ces filtres"
                   : "Aucune participation pour l’instant"}
               </p>
-              <p className="mx-auto mt-2 max-w-lg text-brun-700">
+              <p className="mx-auto mt-2 max-w-lg text-nuit-700">
                 {hasActiveFilters(filters)
                   ? "Élargissez la période ou changez de source pour retrouver des données."
                   : "Les chiffres et les graphiques apparaîtront ici dès la première partie. Pour une démonstration, lancez « npm run seed »."}
@@ -158,8 +158,8 @@ export default async function DashboardPage({ searchParams }: Props) {
               <DashboardCharts stats={data.stats} />
 
               <div className="mb-3 mt-9">
-                <h2 className="font-serif text-xl font-semibold text-brun-900">Avis</h2>
-                <p className="mt-0.5 text-sm text-brun-600">
+                <h2 className="font-serif text-xl font-semibold text-nuit-900">Avis</h2>
+                <p className="mt-0.5 text-sm text-nuit-600">
                   Ce que les participants ont souhaité partager.
                 </p>
               </div>

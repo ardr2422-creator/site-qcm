@@ -35,17 +35,17 @@ export function ChartCard({
 
   return (
     <section
-      className={`min-w-0 break-inside-avoid border border-creme-300 bg-[#fffdf8] ${
+      className={`min-w-0 break-inside-avoid border border-givre-300 bg-white ${
         compact ? "rounded-lg p-4" : "rounded-2xl p-5"
       } ${className}`}
     >
       <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
         <div className="min-w-0">
-          <Heading className="text-base font-semibold leading-snug text-brun-900">
+          <Heading className="text-base font-semibold leading-snug text-nuit-900">
             {title}
           </Heading>
           {subtitle ? (
-            <p className="mt-0.5 text-sm leading-snug text-brun-600">{subtitle}</p>
+            <p className="mt-0.5 text-sm leading-snug text-nuit-600">{subtitle}</p>
           ) : null}
         </div>
         {action}
@@ -55,7 +55,7 @@ export function ChartCard({
 
       {table && table.rows.length > 0 && !compact ? (
         <details className="group mt-3 text-sm print:hidden">
-          <summary className="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-md py-1 font-medium text-brun-600 hover:text-brun-900 [&::-webkit-details-marker]:hidden">
+          <summary className="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-md py-1 font-medium text-nuit-600 hover:text-nuit-900 [&::-webkit-details-marker]:hidden">
             <svg
               viewBox="0 0 12 12"
               width="12"
@@ -75,7 +75,7 @@ export function ChartCard({
           <div className="mt-2 overflow-x-auto">
             <table className="w-full border-collapse text-left tabular-nums">
               <thead>
-                <tr className="border-b border-creme-300 text-brun-600">
+                <tr className="border-b border-givre-300 text-nuit-600">
                   {table.columns.map((column, index) => (
                     <th
                       key={column}
@@ -89,18 +89,18 @@ export function ChartCard({
               </thead>
               <tbody>
                 {table.rows.map((row, rowIndex) => (
-                  <tr key={rowIndex} className="border-b border-creme-200 last:border-0">
+                  <tr key={rowIndex} className="border-b border-givre-200 last:border-0">
                     {row.map((cell, index) =>
                       index === 0 ? (
                         <th
                           key={index}
                           scope="row"
-                          className="py-1.5 pr-3 font-normal text-brun-900"
+                          className="py-1.5 pr-3 font-normal text-nuit-900"
                         >
                           {cell}
                         </th>
                       ) : (
-                        <td key={index} className="py-1.5 pr-3 text-right text-brun-900">
+                        <td key={index} className="py-1.5 pr-3 text-right text-nuit-900">
                           {cell}
                         </td>
                       ),

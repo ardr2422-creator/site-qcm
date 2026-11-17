@@ -1,4 +1,4 @@
-# Les Secrets Gourmands d'Argenteuil
+# Le Royaume des Glaces d'Argenteuil
 
 Jeu de devinettes en ligne : les participants scannent un QR code (sur une table,
 une affiche, au dos d'un menu), répondent à 5 devinettes sur Argenteuil et
@@ -144,7 +144,7 @@ Une devinette ressemble à ceci :
   id: 1,
   text: "Je relie deux rives au-dessus de la Seine. […] Qui suis-je ?",
   options: [
-    { id: "pont-argenteuil", label: "Le pont d'Argenteuil", correct: true },
+    { id: "pont-argenteuil", label: "Le pont routier", correct: true },
     { id: "viaduc-a15", label: "Le viaduc de l'A15" },
     { id: "chemin-halage", label: "Le chemin de halage" },
     { id: "plataneraie", label: "La Plataneraie" },

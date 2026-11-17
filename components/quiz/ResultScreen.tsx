@@ -3,9 +3,12 @@
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-import { Asparagus } from "@/components/illustrations/Asparagus";
-import { Fig } from "@/components/illustrations/Fig";
-import { Ornament, Wave } from "@/components/illustrations/Wave";
+import {
+  FrostFrieze,
+  FrostStar,
+  Ornament,
+  Snowflake,
+} from "@/components/illustrations/Winter";
 import { Button, ButtonLink } from "@/components/ui/Button";
 import {
   TOTAL_QUESTIONS,
@@ -34,7 +37,7 @@ export function ResultScreen() {
   if (!game || !complete) {
     return (
       <div className="carte my-auto flex min-h-64 items-center justify-center px-6 py-10" role="status">
-        <p className="font-serif text-xl italic text-brun-600">
+        <p className="font-serif text-xl italic text-nuit-600">
           Un instant…
         </p>
       </div>
@@ -62,20 +65,20 @@ export function ResultScreen() {
         <div
           role="img"
           aria-label={`Votre score : ${score} sur ${total}`}
-          className="mx-auto mt-4 flex h-36 w-36 flex-col items-center justify-center rounded-full border-2 border-figue-500 bg-figue-50 outline outline-1 outline-offset-4 outline-figue-200"
+          className="mx-auto mt-4 flex h-36 w-36 flex-col items-center justify-center rounded-full border-2 border-ciel-500 bg-ciel-50 outline outline-1 outline-offset-4 outline-ciel-200"
         >
-          <span className="font-serif text-6xl font-semibold leading-none text-figue-600" aria-hidden="true">
+          <span className="font-serif text-6xl font-semibold leading-none text-ciel-600" aria-hidden="true">
             {score}
-            <span className="text-3xl text-figue-500">/{total}</span>
+            <span className="text-3xl text-ciel-500">/{total}</span>
           </span>
         </div>
         <h1
           id="titre-resultat"
-          className="mt-6 text-balance font-serif text-3xl font-semibold leading-tight text-brun-900"
+          className="mt-6 text-balance font-serif text-3xl font-semibold leading-tight text-nuit-900"
         >
           {typo(scoreMessage(score, total))}
         </h1>
-        <p className="mt-2 text-brun-700">
+        <p className="mt-2 text-nuit-700">
           {score === total
             ? "Un sans-faute : les trésors d’Argenteuil n’ont plus de secret pour vous."
             : `Vous avez trouvé ${score} ${score > 1 ? "bonnes réponses" : "bonne réponse"} sur ${total}.`}
@@ -84,10 +87,10 @@ export function ResultScreen() {
 
       {/* Récapitulatif */}
       <section aria-labelledby="titre-recap" className="carte px-6 py-8 sm:px-10">
-        <h2 id="titre-recap" className="font-serif text-2xl font-semibold text-brun-900">
+        <h2 id="titre-recap" className="font-serif text-2xl font-semibold text-nuit-900">
           Les réponses
         </h2>
-        <ol className="mt-4 flex flex-col divide-y divide-creme-300">
+        <ol className="mt-4 flex flex-col divide-y divide-givre-300">
           {questions.map((question, index) => {
             const answer = game.answers[index];
             const correct = getCorrectOption(question);
@@ -107,11 +110,11 @@ export function ResultScreen() {
                   {index + 1}
                 </span>
                 <div className="min-w-0 flex-1">
-                  <p className="text-[0.9375rem] leading-snug text-brun-600">
+                  <p className="text-[0.9375rem] leading-snug text-nuit-600">
                     <span className="sr-only">Devinette {index + 1} : </span>
                     {typo(question.text)}
                   </p>
-                  <p className="mt-1.5 text-lg font-semibold leading-snug text-brun-900">
+                  <p className="mt-1.5 text-lg font-semibold leading-snug text-nuit-900">
                     {typo(correct.label)}
                   </p>
                   <p
@@ -132,7 +135,7 @@ export function ResultScreen() {
 
       {/* Avis */}
       <section aria-labelledby="titre-avis" className="carte px-6 py-8 sm:px-10">
-        <h2 id="titre-avis" className="font-serif text-2xl font-semibold text-brun-900">
+        <h2 id="titre-avis" className="font-serif text-2xl font-semibold text-nuit-900">
           Votre avis
         </h2>
         <div className="mt-4">
@@ -142,13 +145,13 @@ export function ResultScreen() {
 
       {/* Mot de la fin */}
       <section className="px-2 pb-2 pt-2 text-center">
-        <Wave className="mx-auto max-w-[12rem]" />
-        <p className="mx-auto mt-5 max-w-md text-balance font-serif text-xl italic leading-relaxed text-brun-800">
+        <FrostFrieze className="mx-auto max-w-[12rem]" />
+        <p className="mx-auto mt-5 max-w-md text-balance font-serif text-xl italic leading-relaxed text-nuit-800">
           {typo(site.closing)}
         </p>
         <div className="mt-5 flex items-end justify-center gap-5" aria-hidden="true">
-          <Asparagus className="h-16 w-auto -rotate-6" />
-          <Fig className="h-14 w-auto" />
+          <Snowflake className="h-14 w-auto" />
+          <FrostStar className="h-11 w-auto" />
         </div>
         <Ornament className="mx-auto mt-6 h-3 w-28" />
         <div className="mt-5 flex flex-col items-center gap-2">

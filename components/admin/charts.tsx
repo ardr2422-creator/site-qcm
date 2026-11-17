@@ -21,23 +21,23 @@ import {
 /**
  * Graphiques du tableau de bord (Recharts).
  *
- * Parti pris : des graphiques sobres, d'une seule teinte (vert asperge),
+ * Parti pris : des graphiques sobres, d'une seule teinte (bleu profond),
  * avec les valeurs écrites en clair. Une couleur n'apparaît en plus que
  * pour mettre un élément en évidence (la bonne réponse d'une devinette).
  * Chaque graphique est doublé d'un tableau de données dépliable.
  */
 
 export const CHART_COLORS = {
-  /** Série principale — vert asperge (contraste 4,8:1 sur le fond des cartes). */
-  series: "#5a7a32",
-  /** Éléments de second plan (réponses incorrectes). */
-  muted: "#b5a791",
-  grid: "#ebe2cf",
+  /** Série principale — bleu profond (contraste 6,8:1 sur le fond blanc des cartes). */
+  series: "#2259ad",
+  /** Éléments de second plan (réponses incorrectes) : toujours accompagnés de leur valeur écrite. */
+  muted: "#a9b9cc",
+  grid: "#e3ebf4",
   /** Rail clair derrière les barres horizontales (repère des 100 %). */
-  track: "#f1eadc",
-  axis: "#655243",
-  ink: "#2e1f16",
-  hover: "rgba(101, 82, 67, 0.08)",
+  track: "#edf2f8",
+  axis: "#475a73",
+  ink: "#122038",
+  hover: "rgba(34, 89, 173, 0.07)",
 } as const;
 
 const FONT_SIZE = 13;
@@ -85,10 +85,10 @@ type TooltipRow = { title: string; value: string; detail?: string };
 
 function TooltipCard({ title, value, detail }: TooltipRow) {
   return (
-    <div className="max-w-64 rounded-lg border border-creme-300 bg-white px-3 py-2 text-sm shadow-lg">
-      <p className="text-base font-semibold leading-tight text-brun-900">{value}</p>
-      <p className="mt-0.5 leading-snug text-brun-700">{title}</p>
-      {detail ? <p className="mt-0.5 leading-snug text-brun-600">{detail}</p> : null}
+    <div className="max-w-64 rounded-lg border border-givre-300 bg-white px-3 py-2 text-sm shadow-lg">
+      <p className="text-base font-semibold leading-tight text-nuit-900">{value}</p>
+      <p className="mt-0.5 leading-snug text-nuit-700">{title}</p>
+      {detail ? <p className="mt-0.5 leading-snug text-nuit-600">{detail}</p> : null}
     </div>
   );
 }

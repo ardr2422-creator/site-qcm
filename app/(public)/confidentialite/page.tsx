@@ -14,8 +14,8 @@ export const metadata: Metadata = {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section className="mt-8">
-      <h2 className="font-serif text-xl font-semibold text-brun-900">{title}</h2>
-      <div className="mt-2 flex flex-col gap-3 text-brun-800">{children}</div>
+      <h2 className="font-serif text-xl font-semibold text-nuit-900">{title}</h2>
+      <div className="mt-2 flex flex-col gap-3 text-nuit-800">{children}</div>
     </section>
   );
 }
@@ -26,17 +26,17 @@ export default function PrivacyPage() {
   return (
     <article className="carte animate-fade-up px-6 py-8 sm:px-10 sm:py-10">
       <p className="surtitre">{typo(site.title)}</p>
-      <h1 className="mt-2 font-serif text-3xl font-semibold leading-tight text-brun-900">
+      <h1 className="mt-2 font-serif text-3xl font-semibold leading-tight text-nuit-900">
         Confidentialité
       </h1>
-      <p className="mt-4 text-lg text-brun-800">
+      <p className="mt-4 text-lg text-nuit-800">
         Ce jeu est <strong>anonyme</strong>. Aucune information n’est
         obligatoire, aucun compte n’est créé et rien ne permet de vous
         identifier.
       </p>
 
       <Section title="Ce que nous enregistrons">
-        <ul className="list-disc space-y-2 pl-5 marker:text-figue-500">
+        <ul className="list-disc space-y-2 pl-5 marker:text-ciel-500">
           <li>vos réponses aux devinettes et votre score ;</li>
           <li>
             votre prénom et votre quartier, <strong>seulement si vous choisissez
@@ -95,7 +95,7 @@ export default function PrivacyPage() {
               en écrivant à{" "}
               <a
                 href={`mailto:${privacy.contactEmail}`}
-                className="font-semibold text-figue-600 underline underline-offset-4"
+                className="font-semibold text-ciel-600 underline underline-offset-4"
               >
                 {privacy.contactEmail}
               </a>

@@ -32,7 +32,7 @@ export function HomeCta() {
         {inProgress ? "Reprendre le jeu" : "Commencer le jeu"}
         <ArrowRight />
       </ButtonLink>
-      <p className="text-sm text-brun-600">
+      <p className="text-sm text-nuit-600">
         {inProgress
           ? `Vous en étiez à la devinette ${Math.min(game.answers.length + 1, TOTAL_QUESTIONS)} sur ${TOTAL_QUESTIONS}`
           : site.mention}

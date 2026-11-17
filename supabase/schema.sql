@@ -1,5 +1,5 @@
 -- ════════════════════════════════════════════════════════════════════════
---  Les Secrets Gourmands d'Argenteuil — schéma de la base de données
+--  Le Royaume des Glaces d'Argenteuil — schéma de la base de données
 -- ════════════════════════════════════════════════════════════════════════
 --  À coller tel quel dans Supabase : SQL Editor → New query → Run.
 --  Le script peut être relancé sans risque (il ne supprime aucune donnée).
