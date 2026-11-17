@@ -16,8 +16,8 @@ type Props = { className?: string };
 
 /* ─────────────────────────────── Éléments ─────────────────────────────── */
 
-/** Flocon à six branches, centré en (0, 0), de rayon `r`. */
-function Flake({
+/** Flocon à six branches, centré en (x, y), de rayon `r`. */
+export function Flake({
   x,
   y,
   r,
@@ -54,8 +54,8 @@ function Flake({
   );
 }
 
-/** Étoile de givre à quatre pointes (scintillement), centrée en (0, 0). */
-function Sparkle({ x, y, r, color }: { x: number; y: number; r: number; color: string }) {
+/** Étoile de givre à quatre pointes (scintillement), centrée en (x, y). */
+export function Sparkle({ x, y, r, color }: { x: number; y: number; r: number; color: string }) {
   const k = r * 0.16;
   return (
     <path
@@ -108,23 +108,25 @@ export function FrostStar({ className }: Props) {
   );
 }
 
-/** Frise de petits flocons, répétée sur toute la largeur disponible. */
-export function FrostFrieze({ className }: Props) {
+/**
+ * Frise de petits flocons alternés avec des étoiles. Elle dessine toujours un
+ * nombre entier de motifs et s'adapte à la largeur donnée : rien n'est coupé.
+ */
+export function FrostFrieze({ className, count = 6 }: Props & { count?: number }) {
+  const width = 22 + (count - 1) * 44;
   return (
     <svg
+      viewBox={`0 0 ${width} 18`}
       className={className}
-      width="100%"
-      height="18"
       aria-hidden="true"
       focusable="false"
     >
-      <defs>
-        <pattern id="frise-givre" width="44" height="18" patternUnits="userSpaceOnUse">
-          <Flake x={11} y={9} r={6.5} color={C.glace} width={1.4} />
-          <Sparkle x={33} y={9} r={4} color={C.ciel} />
-        </pattern>
-      </defs>
-      <rect width="100%" height="18" fill="url(#frise-givre)" />
+      {Array.from({ length: count }, (_, i) => (
+        <Flake key={`f${i}`} x={11 + i * 44} y={9} r={6.5} color={C.glace} width={1.4} />
+      ))}
+      {Array.from({ length: count - 1 }, (_, i) => (
+        <Sparkle key={`s${i}`} x={33 + i * 44} y={9} r={4} color={C.ciel} />
+      ))}
     </svg>
   );
 }

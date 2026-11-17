@@ -144,8 +144,8 @@ export function ResultScreen() {
       </section>
 
       {/* Mot de la fin */}
-      <section className="px-2 pb-2 pt-2 text-center">
-        <FrostFrieze className="mx-auto max-w-[12rem]" />
+      <section className="rounded-3xl bg-givre-100/85 px-2 pb-3 pt-3 text-center">
+        <FrostFrieze count={5} className="mx-auto w-full max-w-[12rem]" />
         <p className="mx-auto mt-5 max-w-md text-balance font-serif text-xl italic leading-relaxed text-nuit-800">
           {typo(site.closing)}
         </p>

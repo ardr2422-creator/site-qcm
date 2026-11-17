@@ -24,7 +24,7 @@ export function ClientRuntime() {
   // Volontairement placé dans le flux de la page, en bas : un bandeau flottant
   // pourrait recouvrir un bouton ou décaler une réponse au moment du clic.
   return (
-    <div className="mx-auto w-full max-w-xl px-4 pb-3 print:hidden">
+    <div className="relative z-10 mx-auto w-full max-w-xl px-4 pb-3 print:hidden">
       <p
         role="status"
         className="animate-fade-in rounded-2xl border border-givre-400 bg-givre-50 px-4 py-3 text-center text-[0.9375rem] text-nuit-700"

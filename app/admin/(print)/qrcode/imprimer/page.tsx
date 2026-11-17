@@ -5,9 +5,11 @@ import QRCode from "qrcode";
 import { PrintButton } from "@/components/admin/PrintButton";
 import { Logo } from "@/components/brand/Logo";
 import {
+  Flake,
   FrostFrieze,
   FrostStar,
   Snowflake,
+  Sparkle,
 } from "@/components/illustrations/Winter";
 import { site } from "@/data/site";
 import { requireAdmin } from "@/lib/server/admin-auth";
@@ -45,12 +47,93 @@ function QrBlock({ svg, size }: { svg: string; size: string }) {
   );
 }
 
+/* ───────────────────── Flocons décoratifs des gabarits ───────────────────
+   Positions en millimètres, choisies dans les marges : jamais sur le QR code
+   (sa zone blanche doit rester libre pour la lecture) ni sur les textes, et
+   toujours à 6 mm au moins des bords de la feuille, pour ne pas être coupées
+   par l'imprimante.                                                         */
+
+type Deco = { x: number; y: number; r: number; kind: "flocon" | "etoile" | "point"; tone?: "clair" | "vif" };
+
+const TONES = { base: "#8fd2fb", clair: "#bde5fd", vif: "#38b6ff" } as const;
+
+function SnowScatter({ width, height, items }: { width: number; height: number; items: Deco[] }) {
+  return (
+    <svg
+      viewBox={`0 0 ${width} ${height}`}
+      className="pointer-events-none absolute inset-0 h-full w-full"
+      aria-hidden="true"
+      focusable="false"
+    >
+      {items.map((d, i) => {
+        const color = TONES[d.tone ?? "base"];
+        if (d.kind === "flocon") {
+          return <Flake key={i} x={d.x} y={d.y} r={d.r} color={color} width={Math.max(0.45, d.r * 0.14)} />;
+        }
+        if (d.kind === "etoile") return <Sparkle key={i} x={d.x} y={d.y} r={d.r} color={TONES[d.tone ?? "vif"]} />;
+        return <circle key={i} cx={d.x} cy={d.y} r={d.r} fill={color} />;
+      })}
+    </svg>
+  );
+}
+
+/** A5 (148 × 210 mm) : marges de part et d'autre du logo, du QR code et de l'appel. */
+const A5_FLAKES: Deco[] = [
+  // en haut, de chaque côté du logo
+  { x: 13, y: 21, r: 3.6, kind: "flocon" },
+  { x: 20, y: 35, r: 1.2, kind: "point" },
+  { x: 10, y: 46, r: 2, kind: "etoile" },
+  { x: 138, y: 40, r: 3, kind: "flocon", tone: "clair" },
+  { x: 130, y: 51, r: 1.2, kind: "point" },
+  // à gauche du QR code
+  { x: 13, y: 86, r: 4.6, kind: "flocon" },
+  { x: 24, y: 101, r: 2.2, kind: "etoile" },
+  { x: 11, y: 116, r: 3, kind: "flocon", tone: "clair" },
+  { x: 25, y: 128, r: 1.2, kind: "point" },
+  { x: 15, y: 144, r: 4.2, kind: "flocon" },
+  // à droite du QR code
+  { x: 136, y: 84, r: 3.2, kind: "flocon", tone: "clair" },
+  { x: 125, y: 97, r: 1.3, kind: "point" },
+  { x: 137, y: 111, r: 4.8, kind: "flocon" },
+  { x: 125, y: 125, r: 2.4, kind: "etoile" },
+  { x: 135, y: 141, r: 3, kind: "flocon", tone: "clair" },
+  // de part et d'autre de « Scannez-moi pour jouer ! »
+  { x: 11, y: 167, r: 2, kind: "etoile" },
+  { x: 138, y: 166, r: 2.8, kind: "flocon" },
+];
+
+/** Une face du chevalet (210 × 148,5 mm) : au-dessus et au-dessous des textes. */
+const TENT_FLAKES: Deco[] = [
+  // au-dessus du logo
+  { x: 20, y: 17, r: 3, kind: "flocon" },
+  { x: 36, y: 27, r: 1.3, kind: "point" },
+  { x: 52, y: 15, r: 2.2, kind: "etoile" },
+  { x: 72, y: 24, r: 3.6, kind: "flocon", tone: "clair" },
+  { x: 92, y: 14, r: 1.2, kind: "point" },
+  { x: 106, y: 24, r: 2.6, kind: "flocon" },
+  // au-dessous du sous-titre
+  { x: 20, y: 125, r: 4.4, kind: "flocon" },
+  { x: 35, y: 137, r: 1.3, kind: "point" },
+  { x: 47, y: 119, r: 2.4, kind: "etoile" },
+  { x: 63, y: 131, r: 3.2, kind: "flocon", tone: "clair" },
+  { x: 81, y: 121, r: 1.3, kind: "point" },
+  { x: 95, y: 134, r: 4, kind: "flocon" },
+  { x: 110, y: 120, r: 2, kind: "etoile" },
+  // au-dessus et au-dessous de la colonne du QR code
+  { x: 134, y: 14, r: 1.2, kind: "point" },
+  { x: 152, y: 15, r: 2, kind: "etoile" },
+  { x: 188, y: 15, r: 2.8, kind: "flocon", tone: "clair" },
+  { x: 136, y: 137, r: 2.2, kind: "etoile" },
+  { x: 190, y: 136, r: 3, kind: "flocon" },
+];
+
 /** Affichette A5 portrait : 148 × 210 mm. */
 function PosterA5({ svg, displayUrl }: { svg: string; displayUrl: string }) {
   return (
     <div className="relative flex h-[210mm] w-[148mm] flex-col items-center overflow-hidden bg-givre-50 text-center">
-      <div className="bandeau-givre h-[5mm] w-full shrink-0" />
-      <div className="flex w-full flex-1 flex-col items-center px-[12mm] pb-[7mm] pt-[9mm]">
+      <SnowScatter width={148} height={210} items={A5_FLAKES} />
+      <div className="bandeau-givre relative h-[5mm] w-full shrink-0" />
+      <div className="relative flex w-full flex-1 flex-col items-center px-[12mm] pb-[7mm] pt-[9mm]">
         <h1>
           <Logo priority title={typo(site.title)} className="w-[96mm]" />
         </h1>
@@ -72,7 +155,7 @@ function PosterA5({ svg, displayUrl }: { svg: string; displayUrl: string }) {
         <div className="flex w-full items-end justify-between">
           <Snowflake className="h-[17mm] w-auto" />
           <div className="flex flex-col items-center">
-            <FrostFrieze className="w-[50mm]" />
+            <FrostFrieze count={6} className="w-[50mm]" />
             <p className="mt-[1.5mm] text-[7.5pt] text-nuit-600">{displayUrl}</p>
           </div>
           <FrostStar className="h-[15mm] w-auto" />
@@ -85,9 +168,10 @@ function PosterA5({ svg, displayUrl }: { svg: string; displayUrl: string }) {
 /** Une face du chevalet : 210 × 148,5 mm (demi-A4, en largeur). */
 function TentFace({ svg, displayUrl }: { svg: string; displayUrl: string }) {
   return (
-    <div className="flex h-[148.5mm] w-[210mm] flex-col overflow-hidden bg-givre-50">
-      <div className="bandeau-givre h-[5mm] w-full shrink-0" />
-      <div className="flex flex-1 items-center gap-[10mm] px-[14mm] pb-[6mm] pt-[4mm]">
+    <div className="relative flex h-[148.5mm] w-[210mm] flex-col overflow-hidden bg-givre-50">
+      <SnowScatter width={210} height={148.5} items={TENT_FLAKES} />
+      <div className="bandeau-givre relative h-[5mm] w-full shrink-0" />
+      <div className="relative flex flex-1 items-center gap-[10mm] px-[14mm] pb-[6mm] pt-[4mm]">
         <div className="flex min-w-0 flex-1 flex-col">
           <h1>
             <Logo priority title={typo(site.title)} className="w-[92mm]" />

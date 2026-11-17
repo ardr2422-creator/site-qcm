@@ -31,7 +31,7 @@ export default function HomePage() {
         <HomeCta />
       </div>
 
-      <FrostFrieze className="mx-auto mt-9 max-w-[13rem]" />
+      <FrostFrieze count={5} className="mx-auto mt-9 w-full max-w-[12rem]" />
     </article>
   );
 }

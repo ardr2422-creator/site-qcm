@@ -141,7 +141,8 @@
   /* Carte : blanc givré et double filet. */
   .carte {
     position: relative;
-    background-color: var(--color-givre-50);
+    /* Légèrement translucide : la neige se devine derrière, le texte reste net. */
+    background-color: rgb(248 251 254 / 0.8);
     border: 1px solid var(--color-givre-400);
     border-radius: 1.25rem;
     box-shadow:
@@ -158,6 +159,32 @@
     pointer-events: none;
   }
 
+  /* Chute de neige décorative (pages publiques) : derrière le contenu. */
+  .neige {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .neige-flocon {
+    position: absolute;
+    top: 0;
+    animation-name: neige-chute;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    will-change: transform;
+  }
+
+  .neige-flocon > span {
+    display: block;
+    animation-name: neige-balance;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+
   /* Petit surtitre en capitales espacées. */
   .surtitre {
     font-size: 0.8125rem;
@@ -165,6 +192,37 @@
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--color-bleu-700);
+  }
+}
+
+@keyframes neige-chute {
+  from {
+    transform: translate3d(0, -6vh, 0);
+  }
+  to {
+    transform: translate3d(0, 106vh, 0);
+  }
+}
+
+@keyframes neige-balance {
+  from {
+    transform: translateX(calc(var(--balance, 12px) * -1)) rotate(-25deg);
+  }
+  to {
+    transform: translateX(var(--balance, 12px)) rotate(25deg);
+  }
+}
+
+/* Pas de neige pour qui demande moins d'animations, ni à l'impression. */
+@media (prefers-reduced-motion: reduce) {
+  .neige {
+    display: none;
+  }
+}
+
+@media print {
+  .neige {
+    display: none;
   }
 }
 

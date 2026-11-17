@@ -105,7 +105,11 @@ export function QuestionView({
   };
 
   return (
-    <section aria-labelledby="enonce" className="animate-fade-up">
+    // Fond très légèrement opaque : la neige s'estompe derrière le texte.
+    <section
+      aria-labelledby="enonce"
+      className="-mx-3 animate-fade-up rounded-3xl bg-givre-100/85 px-3 py-3"
+    >
       <Progress current={index + 1} total={total} />
 
       <h1
