@@ -151,6 +151,9 @@ export function explainDatabaseError(error: unknown): string | null {
       : "";
   const message = error instanceof Error ? error.message : String(error ?? "");
 
+  if (code === "42703" || /column .* does not exist|Could not find the '.*' column/i.test(message)) {
+    return "La base n’est pas à jour : ouvrez « SQL Editor » dans Supabase, collez à nouveau tout le fichier supabase/schema.sql et cliquez sur « Run » (sans risque pour les données).";
+  }
   if (code === "PGRST205" || code === "42P01" || /schema cache|does not exist/i.test(message)) {
     return "Les tables du jeu n’existent pas encore dans Supabase : ouvrez « SQL Editor », collez le contenu du fichier supabase/schema.sql et cliquez sur « Run ».";
   }

@@ -66,10 +66,36 @@ create table if not exists public.feedback (
 comment on table public.feedback is
   'Avis facultatif : une note de 1 à 5 et/ou un commentaire libre. Un seul avis par partie.';
 
+-- ── Parties en direct (concours devant un public, ex. démonstration aux élus) ──
+-- Les participants saisissent leur nom ; le classement s'affiche sur l'écran
+-- de l'organisatrice. Ces parties ne comptent pas dans les statistiques.
+create table if not exists public.live_games (
+  id         uuid primary key default gen_random_uuid(),
+  code       text not null unique check (code ~ '^[A-Z0-9]{4,10}$'),
+  name       text not null check (char_length(name) between 1 and 80),
+  created_at timestamptz not null default now(),
+  closed_at  timestamptz
+);
+
+comment on table public.live_games is
+  'Parties en direct : un code à scanner, un classement nominatif, hors statistiques.';
+
+-- Rattachement d'une partie à une partie en direct (supprimée avec elle).
+alter table public.sessions
+  add column if not exists live_game_id uuid
+  references public.live_games (id) on delete cascade;
+
+comment on column public.sessions.live_game_id is
+  'Renseigné pour les parties jouées en direct : exclues des statistiques principales.';
+
+create index if not exists sessions_live_game_idx
+  on public.sessions (live_game_id);
+
 -- ── Sécurité : RLS activée partout, aucune policy publique ───────────────
 alter table public.sessions enable row level security;
 alter table public.answers  enable row level security;
 alter table public.feedback enable row level security;
+alter table public.live_games enable row level security;
 
 -- Ceinture et bretelles : on retire aussi les droits des rôles publics,
 -- et on s'assure que le rôle serveur (service_role) a bien accès aux tables.
@@ -80,7 +106,7 @@ begin
   foreach role_name in array array['anon', 'authenticated'] loop
     if exists (select 1 from pg_roles where rolname = role_name) then
       execute format(
-        'revoke all on table public.sessions, public.answers, public.feedback from %I',
+        'revoke all on table public.sessions, public.answers, public.feedback, public.live_games from %I',
         role_name
       );
     end if;
@@ -88,7 +114,7 @@ begin
 
   if exists (select 1 from pg_roles where rolname = 'service_role') then
     grant usage on schema public to service_role;
-    grant all on table public.sessions, public.answers, public.feedback to service_role;
+    grant all on table public.sessions, public.answers, public.feedback, public.live_games to service_role;
   end if;
 end
 $$;

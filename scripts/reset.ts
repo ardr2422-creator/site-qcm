@@ -18,18 +18,19 @@ async function main(): Promise<void> {
   const supabase = getScriptClient();
   const skipPrompt = process.argv.includes("--yes");
 
-  const [sessions, answers, feedback] = await Promise.all([
+  const [sessions, answers, feedback, liveGames] = await Promise.all([
     countRows(supabase, "sessions"),
     countRows(supabase, "answers"),
     countRows(supabase, "feedback"),
+    countRows(supabase, "live_games"),
   ]);
 
   console.log(
     `\nBase ciblée : ${describeTarget()}\n` +
-      `Contenu actuel : ${sessions} partie(s), ${answers} réponse(s), ${feedback} avis.`,
+      `Contenu actuel : ${sessions} partie(s), ${answers} réponse(s), ${feedback} avis, ${liveGames} partie(s) en direct.`,
   );
 
-  if (sessions + answers + feedback === 0) {
+  if (sessions + answers + feedback + liveGames === 0) {
     console.log("\n✓ La base est déjà vide, rien à faire.\n");
     return;
   }
@@ -54,7 +55,7 @@ async function main(): Promise<void> {
 
   // Les réponses et les avis sont supprimés en cascade avec leur partie ;
   // on les efface malgré tout explicitement, par sécurité.
-  for (const table of ["feedback", "answers", "sessions"] as const) {
+  for (const table of ["feedback", "answers", "sessions", "live_games"] as const) {
     const { error } = await supabase.from(table).delete().not("id", "is", null);
     if (error) throw new Error(`Suppression dans « ${table} » : ${error.message}`);
   }

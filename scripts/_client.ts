@@ -36,7 +36,7 @@ export function describeTarget(): string {
 
 export async function countRows(
   supabase: SupabaseClient,
-  table: "sessions" | "answers" | "feedback",
+  table: "sessions" | "answers" | "feedback" | "live_games",
 ): Promise<number> {
   const { count, error } = await supabase
     .from(table)

@@ -240,6 +240,31 @@ Paris.
 Les fichiers CSV s'ouvrent directement dans Excel (séparateur « ; », accents
 conservés).
 
+### Partie en direct (concours, démonstration)
+
+Pour faire jouer un petit groupe devant vous (par exemple cinq élus) et
+annoncer le gagnant :
+
+1. Espace organisateur → **Partie en direct** → donnez un nom (ex.
+   « Démonstration aux élus ») → **Créer et afficher l'écran**.
+2. Projetez l'écran qui s'ouvre (bouton **Plein écran**) : il affiche un grand
+   QR code et un code de 6 caractères.
+3. Chaque participant scanne le QR code, **saisit son nom** et joue. Avec un
+   seul téléphone pour tous, le bouton **Joueur suivant** en fin de partie le
+   passe à la personne suivante.
+4. Pendant le jeu, l'écran montre qui joue et qui a terminé, **sans les
+   scores**. Cliquez sur **Révéler le classement** : podium et vainqueur. À
+   score égal, le plus rapide gagne.
+5. **Clore les inscriptions** empêche de nouvelles personnes de rejoindre.
+
+Ces parties ne comptent **jamais** dans les statistiques, les exports ni le
+bilan imprimable. Vous pouvez les supprimer depuis la liste des parties en
+direct (les noms et les résultats sont alors effacés).
+
+> Le mode « partie en direct » utilise une table ajoutée au schéma : si votre
+> base Supabase a été créée avant, recollez `supabase/schema.sql` dans le
+> **SQL Editor** et cliquez sur **Run** (sans risque pour les données).
+
 ## 8. Données de démonstration : `seed` et `reset`
 
 Pour que le tableau de bord soit parlant pendant une démonstration :

@@ -61,7 +61,8 @@ export async function fetchSessions(
   const sessions: SessionRecord[] = [];
 
   for (let offset = 0; offset < MAX_ROWS; offset += PAGE_SIZE) {
-    let query = supabase.from("sessions").select(SESSION_COLUMNS);
+    // Les parties en direct (concours nominatifs) ne comptent jamais dans les statistiques.
+    let query = supabase.from("sessions").select(SESSION_COLUMNS).is("live_game_id", null);
 
     if (!filters.includeReplays) query = query.eq("replay", false);
     if (fromIso) query = query.gte("created_at", fromIso);
@@ -97,6 +98,7 @@ export async function fetchSources(): Promise<{
     const { data, error } = await supabase
       .from("sessions")
       .select("source")
+      .is("live_game_id", null)
       .order("created_at", { ascending: true })
       .order("id", { ascending: true })
       .range(offset, offset + PAGE_SIZE - 1);

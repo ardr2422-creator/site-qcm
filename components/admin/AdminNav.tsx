@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 const links = [
   { href: "/admin", label: "Tableau de bord" },
   { href: "/admin/qrcode", label: "QR codes" },
+  { href: "/admin/direct", label: "Partie en direct" },
 ];
 
 export function AdminNav() {

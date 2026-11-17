@@ -52,6 +52,49 @@ export function ResultScreen() {
     router.push("/jeu");
   };
 
+  // Partie en direct : écran de fin court. Pas de récapitulatif des bonnes
+  // réponses (les autres joueurs sont peut-être encore en train de jouer),
+  // pas d'avis, et un bouton pour passer le téléphone au joueur suivant.
+  if (game.live) {
+    return (
+      <section
+        aria-labelledby="titre-resultat"
+        className="carte my-auto animate-fade-up px-6 pb-8 pt-9 text-center sm:px-10"
+      >
+        <p className="surtitre">{typo(game.live.title)}</p>
+        <h1
+          id="titre-resultat"
+          className="mt-3 text-balance font-serif text-3xl font-semibold leading-tight text-nuit-900"
+        >
+          {game.firstName ? `Bravo ${game.firstName} !` : "Bravo !"}
+        </h1>
+        <div
+          role="img"
+          aria-label={`Votre score : ${score} sur ${total}`}
+          className="mx-auto mt-6 flex h-36 w-36 flex-col items-center justify-center rounded-full border-2 border-ciel-500 bg-ciel-50 outline outline-1 outline-offset-4 outline-ciel-200"
+        >
+          <span className="font-serif text-6xl font-semibold leading-none text-ciel-600" aria-hidden="true">
+            {score}
+            <span className="text-3xl text-ciel-500">/{total}</span>
+          </span>
+        </div>
+        <p className="mx-auto mt-6 max-w-sm text-lg text-nuit-700">
+          Votre résultat est enregistré. Regardez l’écran de
+          l’organisatrice pour découvrir le classement !
+        </p>
+        <FrostFrieze count={5} className="mx-auto mt-7 w-full max-w-[12rem]" />
+        <div className="mt-7 flex flex-col items-center gap-3">
+          <ButtonLink href={`/direct/${game.live.code}`} className="w-full sm:w-auto">
+            Joueur suivant
+          </ButtonLink>
+          <p className="text-sm text-nuit-600">
+            Pour passer ce téléphone à la personne suivante.
+          </p>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <div className="flex animate-fade-up flex-col gap-6">
       {/* Score */}

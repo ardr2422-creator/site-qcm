@@ -47,6 +47,17 @@ export type LocalGame = {
   answers: LocalAnswer[];
   completedAt: string | null;
   feedbackSent: boolean;
+  /**
+   * Partie en direct (concours nominatif) : code de la partie et nom du joueur.
+   * Absent ou `null` pour une partie ordinaire.
+   */
+  live?: LiveInfo | null;
+};
+
+export type LiveInfo = {
+  code: string;
+  /** Nom de la partie en direct (ex. « Démonstration aux élus »). */
+  title: string;
 };
 
 /** Trace de la première partie terminée sur cet appareil. */
@@ -139,16 +150,21 @@ function shuffle<T>(items: readonly T[]): T[] {
   return result;
 }
 
-/** Démarre une nouvelle partie et prévient le serveur. */
-export function startGame(profile: Profile): LocalGame {
+/**
+ * Démarre une nouvelle partie et prévient le serveur.
+ * Avec `live`, la partie est rattachée à une partie en direct : elle n'est
+ * jamais comptée comme « rejouée » et ne marque pas l'appareil comme ayant
+ * déjà participé (plusieurs joueurs peuvent se passer le même téléphone).
+ */
+export function startGame(profile: Profile, live: LiveInfo | null = null): LocalGame {
   const done = readStored<DoneRecord>(STORAGE_KEYS.done);
 
   const game: LocalGame = {
     sessionId: randomUuid(),
-    replay: done !== null,
+    replay: live ? false : done !== null,
     firstName: cleanLine(profile.firstName, FIRST_NAME_MAX),
-    district: cleanDistrict(profile.district),
-    source: readStored<string>(STORAGE_KEYS.source),
+    district: live ? null : cleanDistrict(profile.district),
+    source: live ? null : readStored<string>(STORAGE_KEYS.source),
     startedAt: new Date().toISOString(),
     optionOrder: Object.fromEntries(
       questions.map((q) => [String(q.id), shuffle(q.options.map((o) => o.id))]),
@@ -156,6 +172,7 @@ export function startGame(profile: Profile): LocalGame {
     answers: [],
     completedAt: null,
     feedbackSent: false,
+    live,
   };
 
   writeStored(STORAGE_KEYS.game, game);
@@ -165,6 +182,7 @@ export function startGame(profile: Profile): LocalGame {
     district: game.district,
     source: game.source,
     replay: game.replay,
+    ...(live ? { liveCode: live.code } : {}),
   });
   return game;
 }
@@ -198,7 +216,7 @@ export function answerQuestion(questionId: number, optionId: string): LocalGame 
 
   if (finished) {
     enqueue("/api/complete", { sessionId: game.sessionId });
-    if (readStored<DoneRecord>(STORAGE_KEYS.done) === null) {
+    if (!game.live && readStored<DoneRecord>(STORAGE_KEYS.done) === null) {
       writeStored<DoneRecord>(STORAGE_KEYS.done, {
         score: gameScore(next),
         total: TOTAL_QUESTIONS,

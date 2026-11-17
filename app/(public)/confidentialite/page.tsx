@@ -54,6 +54,16 @@ export default function PrivacyPage() {
         </p>
       </Section>
 
+      <Section title="Parties en direct">
+        <p>
+          Lors d’une animation menée par l’organisatrice (par exemple un
+          concours devant un public), chaque participant indique son nom : il
+          s’affiche sur l’écran de classement, avec son score et son temps de
+          jeu. Ces parties ne comptent pas dans les statistiques du jeu et
+          peuvent être supprimées à tout moment par l’organisatrice.
+        </p>
+      </Section>
+
       <Section title="À quoi cela sert">
         <p>
           Uniquement à établir les <strong>statistiques du jeu</strong> : nombre
