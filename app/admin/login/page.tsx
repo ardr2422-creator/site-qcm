@@ -3,6 +3,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { LoginForm } from "@/components/admin/LoginForm";
+import { Logo } from "@/components/brand/Logo";
 import { site } from "@/data/site";
 import { safeAdminRedirect } from "@/lib/auth";
 import { isAdmin } from "@/lib/server/admin-auth";
@@ -28,6 +29,7 @@ export default async function LoginPage({ searchParams }: Props) {
     <main className="flex min-h-dvh items-center justify-center px-4 py-10">
       <div className="w-full max-w-sm">
         <div className="carte px-7 py-9">
+          <Logo title="" className="mx-auto mb-6 w-full max-w-[14rem]" />
           <p className="surtitre">Espace organisateur</p>
           <h1 className="mt-2 font-serif text-2xl font-semibold leading-tight text-nuit-900">
             {typo(site.title)}

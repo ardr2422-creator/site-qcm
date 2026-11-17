@@ -1,4 +1,5 @@
-import { FrostFrieze, Ornament, WinterHero } from "@/components/illustrations/Winter";
+import { Logo } from "@/components/brand/Logo";
+import { FrostFrieze, Ornament } from "@/components/illustrations/Winter";
 import { HomeCta } from "@/components/quiz/HomeCta";
 import { site } from "@/data/site";
 import { typo } from "@/lib/typo";
@@ -6,13 +7,13 @@ import { typo } from "@/lib/typo";
 export default function HomePage() {
   return (
     <article className="carte my-auto animate-fade-up px-6 pb-9 pt-8 text-center sm:px-10 sm:pb-11 sm:pt-10">
-      <WinterHero className="mx-auto w-full max-w-[17rem]" />
-
-      <p className="surtitre mt-6">{typo(site.eyebrow)}</p>
-      <h1 className="mt-3 text-balance font-serif text-[2.125rem] font-semibold leading-[1.12] tracking-tight text-nuit-900 sm:text-5xl">
-        {typo(site.title)}
+      {/* Le logo sert de titre : son texte est lu par les lecteurs d'écran. */}
+      <h1>
+        <Logo title={typo(site.title)} className="mx-auto w-full max-w-[20rem] sm:max-w-[24rem]" />
       </h1>
-      <p className="mt-4 text-balance font-serif text-xl italic leading-snug text-ciel-600 sm:text-2xl">
+
+      <p className="surtitre mt-7">{typo(site.eyebrow)}</p>
+      <p className="mt-2 text-balance font-serif text-xl italic leading-snug text-ciel-600 sm:text-2xl">
         {typo(site.tagline)}
       </p>
 

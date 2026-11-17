@@ -170,6 +170,17 @@ site refuse de démarrer et indique la devinette concernée.
 Les apostrophes droites (`'`) sont converties automatiquement en apostrophes
 typographiques (`’`) à l'affichage : écrivez simplement.
 
+## Logo
+
+Le logo « Le royaume des glaces d'Argenteuil » est dans [`public/logo/`](public/logo) :
+
+| Fichier                            | Usage                                          |
+| ---------------------------------- | ---------------------------------------------- |
+| `royaume-des-glaces.svg` / `.png`  | Sur fond clair (le PNG fait 2400 px de large, fond transparent) |
+| `royaume-des-glaces-blanc.svg` / `.png` | Sur fond foncé (texte blanc)              |
+
+Sur le site, il est dessiné par le composant `components/brand/Logo.tsx` (mêmes tracés).
+
 ## 6. Générer les QR codes
 
 1. Connectez-vous sur `/admin`, puis ouvrez **QR codes**.

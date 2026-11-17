@@ -4,7 +4,7 @@ import Link from "next/link";
 import { DashboardCharts } from "@/components/admin/DashboardCharts";
 import { PrintButton } from "@/components/admin/PrintButton";
 import { StatTiles } from "@/components/admin/StatTiles";
-import { FrostStar, Snowflake } from "@/components/illustrations/Winter";
+import { Logo } from "@/components/brand/Logo";
 import { site } from "@/data/site";
 import { formatDateTime, formatDayKey } from "@/lib/dates";
 import { NO_SOURCE, filtersToQuery, parseFilters, type DashboardFilters } from "@/lib/filters";
@@ -89,10 +89,7 @@ export default async function PrintableReportPage({ searchParams }: Props) {
             </h1>
             <p className="mt-1 font-serif italic text-ciel-600">{typo(site.subtitle)}</p>
           </div>
-          <div className="flex shrink-0 items-end gap-2" aria-hidden="true">
-            <Snowflake className="h-14 w-auto" />
-            <FrostStar className="h-10 w-auto" />
-          </div>
+          <Logo title="" className="h-[4.5rem] w-auto shrink-0" />
         </header>
 
         <p className="mt-3 text-sm text-nuit-700">

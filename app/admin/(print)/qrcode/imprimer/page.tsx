@@ -3,11 +3,11 @@ import Link from "next/link";
 import QRCode from "qrcode";
 
 import { PrintButton } from "@/components/admin/PrintButton";
+import { Logo } from "@/components/brand/Logo";
 import {
   FrostFrieze,
   FrostStar,
   Snowflake,
-  WinterHero,
 } from "@/components/illustrations/Winter";
 import { site } from "@/data/site";
 import { requireAdmin } from "@/lib/server/admin-auth";
@@ -51,13 +51,13 @@ function PosterA5({ svg, displayUrl }: { svg: string; displayUrl: string }) {
     <div className="relative flex h-[210mm] w-[148mm] flex-col items-center overflow-hidden bg-givre-50 text-center">
       <div className="bandeau-givre h-[5mm] w-full shrink-0" />
       <div className="flex w-full flex-1 flex-col items-center px-[12mm] pb-[7mm] pt-[9mm]">
-        <p className="text-[9pt] font-semibold uppercase tracking-[0.18em] text-bleu-700">
+        <h1>
+          <Logo title={typo(site.title)} className="w-[96mm]" />
+        </h1>
+        <p className="mt-[4mm] text-[9pt] font-semibold uppercase tracking-[0.18em] text-bleu-700">
           {typo(site.eyebrow)}
         </p>
-        <h1 className="mt-[3mm] text-balance font-serif text-[27pt] font-semibold leading-[1.08] tracking-tight text-nuit-900">
-          {typo(site.title)}
-        </h1>
-        <p className="mt-[3mm] text-balance font-serif text-[13pt] italic leading-snug text-ciel-600">
+        <p className="mt-[1.5mm] text-balance font-serif text-[13pt] italic leading-snug text-ciel-600">
           {typo(site.tagline)}
         </p>
 
@@ -89,16 +89,15 @@ function TentFace({ svg, displayUrl }: { svg: string; displayUrl: string }) {
       <div className="bandeau-givre h-[5mm] w-full shrink-0" />
       <div className="flex flex-1 items-center gap-[10mm] px-[14mm] pb-[6mm] pt-[4mm]">
         <div className="flex min-w-0 flex-1 flex-col">
-          <p className="text-[9pt] font-semibold uppercase tracking-[0.18em] text-bleu-700">
+          <h1>
+            <Logo title={typo(site.title)} className="w-[92mm]" />
+          </h1>
+          <p className="mt-[6mm] text-[9pt] font-semibold uppercase tracking-[0.18em] text-bleu-700">
             {typo(site.eyebrow)}
           </p>
-          <h1 className="mt-[3mm] text-balance font-serif text-[25pt] font-semibold leading-[1.08] tracking-tight text-nuit-900">
-            {typo(site.title)}
-          </h1>
-          <p className="mt-[3mm] text-balance font-serif text-[12.5pt] italic leading-snug text-ciel-600">
+          <p className="mt-[1.5mm] text-balance font-serif text-[12.5pt] italic leading-snug text-ciel-600">
             {typo(site.tagline)}
           </p>
-          <WinterHero className="mt-[6mm] w-[70mm]" />
         </div>
         <div className="flex shrink-0 flex-col items-center text-center">
           <QrBlock svg={svg} size="72mm" />

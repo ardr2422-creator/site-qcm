@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { logoutAction } from "@/app/admin/actions";
 import { AdminNav } from "@/components/admin/AdminNav";
+import { Logo } from "@/components/brand/Logo";
 import { site } from "@/data/site";
 import { requireAdmin } from "@/lib/server/admin-auth";
 import { typo } from "@/lib/typo";
@@ -21,12 +22,16 @@ export default async function AdminPanelLayout({
     <div className="min-h-dvh bg-givre-100 text-base">
       <header className="border-b border-givre-300 bg-givre-50">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-6 gap-y-3 px-4 py-3 sm:px-6">
-          <Link href="/admin" className="mr-auto min-w-0">
-            <span className="block text-xs font-semibold uppercase tracking-[0.14em] text-bleu-700">
-              Espace organisateur
-            </span>
-            <span className="block truncate font-serif text-lg font-semibold leading-tight text-nuit-900">
-              {typo(site.title)}
+          <Link
+            href="/admin"
+            className="mr-auto flex min-w-0 items-center gap-4"
+            aria-label={`${typo(site.title)} — espace organisateur, tableau de bord`}
+          >
+            <Logo title="" className="h-14 w-auto shrink-0" />
+            <span className="hidden border-l border-givre-300 pl-4 text-xs font-semibold uppercase tracking-[0.14em] text-bleu-700 sm:block">
+              Espace
+              <br />
+              organisateur
             </span>
           </Link>
           <AdminNav />
