@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ───────────────────── Palette « Royaume des Glaces » ───────────────────
-   Bleu ciel du logo (#38b0f8), bleu profond, blanc givré et bleu nuit.
+   Bleu ciel de l'étoile du logo (#38b6ff), bleu profond, blanc givré et bleu nuit.
    Le bleu ciel du logo, trop clair pour du texte, ne sert qu'aux décors ;
    tous les couples texte/fond utilisés respectent WCAG AA.               */
 @theme {
@@ -18,7 +18,7 @@
   --color-glace-200: #bde5fd;
   --color-glace-300: #8fd2fb;
   --color-glace-400: #5cc0f9;
-  --color-glace-500: #38b0f8;
+  --color-glace-500: #38b6ff;
 
   /* Bleu profond : boutons, éléments principaux */
   --color-bleu-500: #2b6cc4;
@@ -31,7 +31,7 @@
   --color-ciel-50: #ebf7fe;
   --color-ciel-100: #d3eefd;
   --color-ciel-200: #a6dcfb;
-  --color-ciel-400: #38b0f8;
+  --color-ciel-400: #38b6ff;
   --color-ciel-500: #0e8bd6;
   --color-ciel-600: #0a6eae;
   --color-ciel-700: #08588c;

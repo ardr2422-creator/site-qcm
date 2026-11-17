@@ -27,7 +27,7 @@ export default async function AdminPanelLayout({
             className="mr-auto flex min-w-0 items-center gap-4"
             aria-label={`${typo(site.title)} — espace organisateur, tableau de bord`}
           >
-            <Logo title="" className="h-14 w-auto shrink-0" />
+            <Logo priority title="" className="h-14 w-auto shrink-0" />
             <span className="hidden border-l border-givre-300 pl-4 text-xs font-semibold uppercase tracking-[0.14em] text-bleu-700 sm:block">
               Espace
               <br />

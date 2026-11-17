@@ -89,7 +89,7 @@ export default async function PrintableReportPage({ searchParams }: Props) {
             </h1>
             <p className="mt-1 font-serif italic text-ciel-600">{typo(site.subtitle)}</p>
           </div>
-          <Logo title="" className="h-[4.5rem] w-auto shrink-0" />
+          <Logo priority title="" className="h-[4.5rem] w-auto shrink-0" />
         </header>
 
         <p className="mt-3 text-sm text-nuit-700">

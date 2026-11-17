@@ -174,12 +174,16 @@ typographiques (`’`) à l'affichage : écrivez simplement.
 
 Le logo « Le royaume des glaces d'Argenteuil » est dans [`public/logo/`](public/logo) :
 
-| Fichier                            | Usage                                          |
-| ---------------------------------- | ---------------------------------------------- |
-| `royaume-des-glaces.svg` / `.png`  | Sur fond clair (le PNG fait 2400 px de large, fond transparent) |
-| `royaume-des-glaces-blanc.svg` / `.png` | Sur fond foncé (texte blanc)              |
+| Fichier                         | Usage                          |
+| ------------------------------- | ------------------------------ |
+| `royaume-des-glaces.svg`        | Sur fond clair (texte noir)    |
+| `royaume-des-glaces-blanc.svg`  | Sur fond foncé (texte blanc)   |
 
-Sur le site, il est dessiné par le composant `components/brand/Logo.tsx` (mêmes tracés).
+C'est le fichier fourni, simplement recadré (les marges blanches retirées). Pour
+le changer, remplacez ces deux fichiers en gardant les mêmes noms : le site,
+les affichettes QR et le bilan PDF l'utilisent automatiquement. Si les
+proportions changent, mettez à jour `WIDTH` et `HEIGHT` dans
+`components/brand/Logo.tsx`.
 
 ## 6. Générer les QR codes
 

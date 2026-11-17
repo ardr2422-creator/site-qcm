@@ -52,7 +52,7 @@ function PosterA5({ svg, displayUrl }: { svg: string; displayUrl: string }) {
       <div className="bandeau-givre h-[5mm] w-full shrink-0" />
       <div className="flex w-full flex-1 flex-col items-center px-[12mm] pb-[7mm] pt-[9mm]">
         <h1>
-          <Logo title={typo(site.title)} className="w-[96mm]" />
+          <Logo priority title={typo(site.title)} className="w-[96mm]" />
         </h1>
         <p className="mt-[4mm] text-[9pt] font-semibold uppercase tracking-[0.18em] text-bleu-700">
           {typo(site.eyebrow)}
@@ -90,7 +90,7 @@ function TentFace({ svg, displayUrl }: { svg: string; displayUrl: string }) {
       <div className="flex flex-1 items-center gap-[10mm] px-[14mm] pb-[6mm] pt-[4mm]">
         <div className="flex min-w-0 flex-1 flex-col">
           <h1>
-            <Logo title={typo(site.title)} className="w-[92mm]" />
+            <Logo priority title={typo(site.title)} className="w-[92mm]" />
           </h1>
           <p className="mt-[6mm] text-[9pt] font-semibold uppercase tracking-[0.18em] text-bleu-700">
             {typo(site.eyebrow)}

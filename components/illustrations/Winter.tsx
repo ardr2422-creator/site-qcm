@@ -6,7 +6,7 @@
 
 const C = {
   nuit: "#1c4a94",
-  ciel: "#38b0f8",
+  ciel: "#38b6ff",
   glace: "#8fd2fb",
   givre: "#d3eefd",
   halo: "#eef8ff",

@@ -9,7 +9,11 @@ export default function HomePage() {
     <article className="carte my-auto animate-fade-up px-6 pb-9 pt-8 text-center sm:px-10 sm:pb-11 sm:pt-10">
       {/* Le logo sert de titre : son texte est lu par les lecteurs d'écran. */}
       <h1>
-        <Logo title={typo(site.title)} className="mx-auto w-full max-w-[20rem] sm:max-w-[24rem]" />
+        <Logo
+          priority
+          title={typo(site.title)}
+          className="mx-auto w-full max-w-[20rem] sm:max-w-[24rem]"
+        />
       </h1>
 
       <p className="surtitre mt-7">{typo(site.eyebrow)}</p>
