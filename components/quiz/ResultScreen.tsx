@@ -54,7 +54,7 @@ export function ResultScreen() {
 
   // Partie en direct : écran de fin court. Pas de récapitulatif des bonnes
   // réponses (les autres joueurs sont peut-être encore en train de jouer),
-  // pas d'avis, et un bouton pour passer le téléphone au joueur suivant.
+  // pas d'avis.
   if (game.live) {
     return (
       <section
@@ -83,14 +83,6 @@ export function ResultScreen() {
           l’organisatrice pour découvrir le classement !
         </p>
         <FrostFrieze count={5} className="mx-auto mt-7 w-full max-w-[12rem]" />
-        <div className="mt-7 flex flex-col items-center gap-3">
-          <ButtonLink href={`/direct/${game.live.code}`} className="w-full sm:w-auto">
-            Joueur suivant
-          </ButtonLink>
-          <p className="text-sm text-nuit-600">
-            Pour passer ce téléphone à la personne suivante.
-          </p>
-        </div>
       </section>
     );
   }

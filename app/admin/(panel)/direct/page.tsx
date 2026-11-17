@@ -134,7 +134,6 @@ export default async function LiveGamesPage() {
         <ol className="mt-2 list-decimal space-y-1 pl-5">
           <li>Créez la partie : l’écran de classement s’ouvre avec un grand QR code.</li>
           <li>Projetez cet écran. Chaque participant scanne le QR code, saisit son nom et joue.</li>
-          <li>Un seul téléphone pour tous ? En fin de partie, le bouton « Joueur suivant » relance pour la personne suivante.</li>
           <li>Les scores restent cachés pendant le jeu. Cliquez sur « Révéler le classement » pour afficher le podium : à score égal, le plus rapide gagne.</li>
         </ol>
       </section>

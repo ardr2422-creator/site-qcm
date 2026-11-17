@@ -249,9 +249,8 @@ annoncer le gagnant :
    « Démonstration aux élus ») → **Créer et afficher l'écran**.
 2. Projetez l'écran qui s'ouvre (bouton **Plein écran**) : il affiche un grand
    QR code et un code de 6 caractères.
-3. Chaque participant scanne le QR code, **saisit son nom** et joue. Avec un
-   seul téléphone pour tous, le bouton **Joueur suivant** en fin de partie le
-   passe à la personne suivante.
+3. Chaque participant scanne le QR code avec son téléphone, **saisit son nom**
+   et joue.
 4. Pendant le jeu, l'écran montre qui joue et qui a terminé, **sans les
    scores**. Cliquez sur **Révéler le classement** : podium et vainqueur. À
    score égal, le plus rapide gagne.
