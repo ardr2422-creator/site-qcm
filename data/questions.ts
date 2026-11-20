@@ -43,11 +43,10 @@ export const questions: QuizQuestion[] = [
     id: 1,
     text: "Je relie deux rives au-dessus de la Seine. Un peintre impressionniste m'a immortalisé à plusieurs reprises en 1874. Qui suis-je ?",
     options: [
-      // Titre d'un tableau de Monet (1874) : « Le Pont routier, Argenteuil ».
-      { id: "pont-argenteuil", label: "Le pont routier", correct: true },
-      { id: "viaduc-a15", label: "Le viaduc de l'A15" },
-      { id: "chemin-halage", label: "Le chemin de halage" },
-      { id: "plataneraie", label: "La Plataneraie" },
+      { id: "pont-argenteuil", label: "Le pont d'Argenteuil", correct: true },
+      { id: "pont-darse", label: "Le pont de la Darse" },
+      { id: "pont-liberte", label: "Le pont de la Liberté" },
+      { id: "pont-champioux", label: "Le pont des Champioux" },
     ],
     anecdote:
       "Claude Monet, installé à Argenteuil de 1871 à 1878, a peint le pont plusieurs fois en 1874.",
@@ -57,9 +56,9 @@ export const questions: QuizQuestion[] = [
     text: "J'ai inspiré les peintres, les promeneurs et les amateurs de voile. Autrefois, les bateaux et les régates animaient mes eaux. Où êtes-vous ?",
     options: [
       { id: "quai-seine", label: "Le quai de Seine", correct: true },
-      { id: "basilique-saint-denys", label: "La basilique Saint-Denys" },
-      { id: "tour-billy", label: "La tour Billy" },
-      { id: "abbaye-notre-dame", label: "L'abbaye Notre-Dame" },
+      { id: "quai-bezons", label: "Le quai de Bezons" },
+      { id: "port-argenteuil", label: "Le port d'Argenteuil" },
+      { id: "bassin-coteaux", label: "Le bassin des Coteaux" },
     ],
     anecdote:
       "Au XIXe siècle, Argenteuil était un haut lieu de la voile et des régates, ce qui a attiré les impressionnistes.",
@@ -69,9 +68,9 @@ export const questions: QuizQuestion[] = [
     text: "Je prends de la hauteur au-dessus de la ville. Un moulin du XVIe siècle me coiffe, et 250 marches mènent à mon grand panorama. Quel lieu suis-je ?",
     options: [
       { id: "butte-orgemont", label: "La butte d'Orgemont", correct: true },
-      { id: "coteaux", label: "Les Coteaux" },
-      { id: "butte-chataigniers", label: "La butte des Châtaigniers" },
-      { id: "val-notre-dame", label: "Le Val-Notre-Dame" },
+      { id: "butte-coteaux", label: "La butte des Coteaux" },
+      { id: "butte-val-notre-dame", label: "La butte du Val-Notre-Dame" },
+      { id: "butte-val-argent", label: "La butte du Val-d'Argent" },
     ],
     anecdote:
       "Le gypse extrait sur place servait à fabriquer le plâtre, une industrie importante de la région.",
@@ -94,12 +93,12 @@ export const questions: QuizQuestion[] = [
     options: [
       {
         id: "asperge-figue",
-        label: "L'asperge et la figue",
+        label: "L'asperge d'Argenteuil et la figue",
         correct: true,
       },
-      { id: "cerises-lentilles", label: "Les cerises et les lentilles" },
-      { id: "fraises-framboises", label: "Les fraises et les framboises" },
-      { id: "vin-platre", label: "Le vin et le plâtre" },
+      { id: "asperge-cerise", label: "L'asperge d'Argenteuil et la cerise" },
+      { id: "figue-poire", label: "La figue et la poire d'Argenteuil" },
+      { id: "fraises-framboises", label: "Les fraises et les framboises d'Argenteuil" },
     ],
     anecdote:
       "L'asperge d'Argenteuil était servie sur les grandes tables parisiennes, et la figue d'Argenteuil était aussi très réputée.",
